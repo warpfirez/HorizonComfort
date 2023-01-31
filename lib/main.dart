@@ -24,7 +24,32 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Flutter Demo"),
+        title: const Text(
+          "Flutter Demo",
+        ),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Text(
+              "Horizon",
+              style: TextStyle(
+                fontFamily: 'Horizon',
+                fontSize: 80,
+                fontWeight: FontWeight.w100,
+              ),
+            ),
+            Text(
+              "Comfort",
+              style: TextStyle(
+                fontFamily: 'Horizon',
+                fontSize: 70,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
