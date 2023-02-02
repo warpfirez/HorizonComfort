@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:horizon_comfort/screens/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,46 +12,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(brightness: Brightness.dark, primaryColor: Colors.teal),
+      theme: ThemeData(
+          brightness: Brightness.dark, primaryColor: Colors.teal[900]),
       home: const HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Flutter Demo",
-        ),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text(
-              "Horizon",
-              style: TextStyle(
-                fontFamily: 'Horizon',
-                fontSize: 80,
-                fontWeight: FontWeight.w100,
-              ),
-            ),
-            Text(
-              "Comfort",
-              style: TextStyle(
-                fontFamily: 'Horizon',
-                fontSize: 70,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
