@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 import '../utilities/constants.dart';
 import '../widgets/custom_elevated_button.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
-  static const String routeName = 'LoginScreen';
+  static const String routeName = 'RegisterScreen';
 
-  /// static so the method can be called without creating an object
   static Route route() {
     return MaterialPageRoute(
-      builder: (context) => const LoginScreen(),
+      builder: (context) => const RegisterScreen(),
       settings: const RouteSettings(name: routeName),
     );
   }
@@ -75,17 +74,15 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   CustomElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, 'RegisterScreen');
-                    },
-                    text: 'Login',
+                    onPressed: () {},
+                    text: 'Register',
                   )
                 ],
               ),
               GestureDetector(
-                child: const Text("First time? Register here"),
+                child: const Text("Already have an account? Login here"),
                 onTap: () {
-                  Navigator.pushNamed(context, 'RegisterScreen');
+                  Navigator.pushNamed(context, 'LoginScreen');
                 },
               ),
             ],

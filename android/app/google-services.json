@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "100920673133",
+    "project_id": "horizon-comfort",
+    "storage_bucket": "horizon-comfort.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:100920673133:android:9bf30247ac808185ff9064",
+        "android_client_info": {
+          "package_name": "com.warpfirez.horizon_comfort"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "100920673133-cqpj3l3t5lhbr8sn01579806jv56ctei.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsm78FHHeqLv1UWhGQseirYTEwDSq9h0w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "100920673133-cqpj3l3t5lhbr8sn01579806jv56ctei.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
