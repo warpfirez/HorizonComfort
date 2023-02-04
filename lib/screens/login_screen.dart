@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:horizon_comfort/screens/loading_screen.dart';
+import 'package:horizon_comfort/screens/register_screen.dart';
 
 import '../utilities/constants.dart';
 import '../widgets/custom_elevated_button.dart';
@@ -76,7 +78,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   CustomElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'RegisterScreen');
+                      Navigator.pushNamed(context, LoadingScreen.routeName);
                     },
                     text: 'Login',
                   )
@@ -85,7 +87,7 @@ class LoginScreen extends StatelessWidget {
               GestureDetector(
                 child: const Text("First time? Register here"),
                 onTap: () {
-                  Navigator.pushNamed(context, 'RegisterScreen');
+                  Navigator.pushNamed(context, RegisterScreen.routeName);
                 },
               ),
             ],

@@ -3,10 +3,15 @@ import 'package:flutter/material.dart';
 class CustomElevatedButton extends StatelessWidget {
   final Function()? onPressed;
   final String text;
+  final String? email;
+  final String? password;
+
   const CustomElevatedButton({
     Key? key,
     required this.onPressed,
     required this.text,
+    this.email,
+    this.password,
   }) : super(key: key);
 
   @override
@@ -20,7 +25,10 @@ class CustomElevatedButton extends StatelessWidget {
         shadowColor: MaterialStateProperty.all(Colors.brown[900]),
       ),
       onPressed: onPressed,
-      child: Text(text),
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 20),
+      ),
     );
   }
 }

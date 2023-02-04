@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "100920673133",
-    "project_id": "horizon-comfort",
-    "storage_bucket": "horizon-comfort.appspot.com"
+    "project_number": "523692600438",
+    "project_id": "horizon-comfort-a705a",
+    "storage_bucket": "horizon-comfort-a705a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:100920673133:android:9bf30247ac808185ff9064",
+        "mobilesdk_app_id": "1:523692600438:android:2396eb94aa6170db9b4357",
         "android_client_info": {
           "package_name": "com.warpfirez.horizon_comfort"
         }
       },
       "oauth_client": [
         {
-          "client_id": "100920673133-cqpj3l3t5lhbr8sn01579806jv56ctei.apps.googleusercontent.com",
+          "client_id": "523692600438-8s2jtt7mh1rf5kcgkddpktmnv34cfqnm.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCsm78FHHeqLv1UWhGQseirYTEwDSq9h0w"
+          "current_key": "AIzaSyA2Af0-pMZDdDC7uf0akkk3rlcR779qwU4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "100920673133-cqpj3l3t5lhbr8sn01579806jv56ctei.apps.googleusercontent.com",
+              "client_id": "523692600438-8s2jtt7mh1rf5kcgkddpktmnv34cfqnm.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

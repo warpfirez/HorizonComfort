@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:horizon_comfort/screens/loading_screen.dart';
 import 'package:horizon_comfort/screens/login_screen.dart';
 import 'package:horizon_comfort/screens/register_screen.dart';
 
 class AppNavigator {
   /// static so the method can be called without creating an object
-  static Route generateRoute(RouteSettings settings) {
+  static Route onGenerateRoute(RouteSettings settings) {
     print("Current route: ${settings.name}");
 
     switch (settings.name) {
@@ -14,6 +15,8 @@ class AppNavigator {
         return LoginScreen.route();
       case RegisterScreen.routeName:
         return RegisterScreen.route();
+      case LoadingScreen.routeName:
+        return LoadingScreen.route();
       default:
         return _errorRoute();
     }

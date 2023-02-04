@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:horizon_comfort/screens/login_screen.dart';
 
+import '../services/user_helper.dart';
 import '../utilities/constants.dart';
 import '../widgets/custom_elevated_button.dart';
 
@@ -17,6 +19,9 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    late String email;
+    late String password;
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -59,7 +64,9 @@ class RegisterScreen extends StatelessWidget {
                         bottom: 16.0, left: 8.0, right: 8.0),
                     child: TextField(
                       decoration: kTextFieldDecoration,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        email = value;
+                      },
                     ),
                   ),
                   Padding(
@@ -70,11 +77,14 @@ class RegisterScreen extends StatelessWidget {
                       decoration: kTextFieldDecoration.copyWith(
                         hintText: "Enter your password",
                       ),
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        password = value;
+                      },
                     ),
                   ),
                   CustomElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async => await UserHelper.registerUser(
+                        email: email, password: password),
                     text: 'Register',
                   )
                 ],
@@ -82,7 +92,7 @@ class RegisterScreen extends StatelessWidget {
               GestureDetector(
                 child: const Text("Already have an account? Login here"),
                 onTap: () {
-                  Navigator.pushNamed(context, 'LoginScreen');
+                  Navigator.pushNamed(context, LoginScreen.routeName);
                 },
               ),
             ],

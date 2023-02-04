@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:horizon_comfort/config/app_navigator.dart';
+import 'package:horizon_comfort/screens/loading_screen.dart';
+import 'package:horizon_comfort/screens/login_screen.dart';
 import 'package:horizon_comfort/screens/register_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'data/firebase_options.dart';
 
 Future<void> main() async {
   initializeDefault();
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           brightness: Brightness.dark, primaryColor: Colors.teal[900]),
       home: const RegisterScreen(),
-      onGenerateRoute: AppNavigator.generateRoute,
+      onGenerateRoute: AppNavigator.onGenerateRoute,
       initialRoute: RegisterScreen.routeName,
     );
   }
