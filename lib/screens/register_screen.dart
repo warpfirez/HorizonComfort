@@ -7,13 +7,14 @@ import '../utilities/constants.dart';
 import '../widgets/custom_elevated_button.dart';
 
 class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+  RegisterScreen({Key? key}) : super(key: key);
 
   static const String routeName = 'RegisterScreen';
+  final formKey = GlobalKey<FormState>();
 
   static Route route() {
     return MaterialPageRoute(
-      builder: (context) => const RegisterScreen(),
+      builder: (context) => RegisterScreen(),
       settings: const RouteSettings(name: routeName),
     );
   }
@@ -23,86 +24,114 @@ class RegisterScreen extends StatelessWidget {
     return Scaffold(
       body: BlocBuilder<RegisterCubit, RegisterState>(
         builder: (context, state) {
-          return Container(
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage('images/NightCityBackground.jpg'))),
-            child: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      SizedBox(
-                        width: double.infinity,
-                        child: FittedBox(
-                          fit: BoxFit.contain,
-                          child: Text(
-                            "Horizon",
-                            style: kHorizonTextStyle,
+          return Form(
+            autovalidateMode: AutovalidateMode.disabled,
+            key: formKey,
+            child: Container(
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage('images/NightCityBackground.jpg'))),
+              child: SafeArea(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: const [
+                        SizedBox(
+                          width: double.infinity,
+                          child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: Text(
+                              "Horizon",
+                              style: kHorizonTextStyle,
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: FittedBox(
-                          fit: BoxFit.contain,
-                          child: Text(
-                            "Comfort",
-                            style: kHorizonTextStyleBold,
+                        SizedBox(
+                          width: double.infinity,
+                          child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: Text(
+                              "Comfort",
+                              style: kHorizonTextStyleBold,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            bottom: 16.0, left: 8.0, right: 8.0),
-                        child: TextField(
-                          decoration: kTextFieldDecoration,
-                          onChanged: (value) {
-                            context.read<RegisterCubit>().emailChanged(value);
-                            print(state.email);
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              bottom: 16.0, left: 8.0, right: 8.0),
+                          child: TextFormField(
+                            decoration: kTextFieldDecoration,
+                            onChanged: (value) {
+                              context.read<RegisterCubit>().emailChanged(value);
+                              print(state.email);
+                            },
+                            validator: (value) {
+                              if (state.email.isEmpty ||
+                                  !state.email.contains('@')) {
+                                return 'Enter a valid email';
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              bottom: 16.0, left: 8.0, right: 8.0),
+                          child: TextFormField(
+                            obscureText: true,
+                            decoration: kTextFieldDecoration.copyWith(
+                              hintText: "Enter your password",
+                            ),
+                            onChanged: (value) {
+                              context
+                                  .read<RegisterCubit>()
+                                  .passwordChanged(value);
+                              print(state.password);
+                            },
+                            validator: (value) {
+                              if (state.password.length < 6 ||
+                                  state.password.isEmpty) {
+                                return 'Password is too short';
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                        ),
+                        CustomElevatedButton(
+                          onPressed: () {
+                            final isValidForm =
+                                formKey.currentState!.validate();
+                            if (isValidForm) {
+                              context
+                                  .read<RegisterCubit>()
+                                  .registerWithCredentials();
+                            }
                           },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            bottom: 16.0, left: 8.0, right: 8.0),
-                        child: TextField(
-                          obscureText: true,
-                          decoration: kTextFieldDecoration.copyWith(
-                            hintText: "Enter your password",
-                          ),
-                          onChanged: (value) {
-                            context
-                                .read<RegisterCubit>()
-                                .passwordChanged(value);
-                            print(state.password);
-                          },
-                        ),
-                      ),
-                      CustomElevatedButton(
-                        onPressed: () {
-                          context
-                              .read<RegisterCubit>()
-                              .registerWithCredentials();
-                        },
-                        text: 'Register',
-                      )
-                    ],
-                  ),
-                  GestureDetector(
-                    child: const Text("Already have an account? Login here"),
-                    onTap: () {
-                      Navigator.pushNamed(context, LoginScreen.routeName);
-                    },
-                  ),
-                ],
+                          text: 'Register',
+                        )
+                      ],
+                    ),
+                    GestureDetector(
+                      child: const Text("Already have an account? Login here"),
+                      onTap: () {
+                        // Navigator.pushNamed(context, LoginScreen.routeName);
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          LoginScreen.routeName,
+                          ModalRoute.withName(RegisterScreen.routeName),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           );

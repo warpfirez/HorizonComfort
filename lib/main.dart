@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:horizon_comfort/blocs/auth/auth_bloc.dart';
+import 'package:horizon_comfort/cubits/login/login_cubit.dart';
+import 'package:horizon_comfort/screens/register_screen.dart';
 import 'cubits/register/register_cubit.dart';
 import 'package:horizon_comfort/config/app_navigator.dart';
 import 'package:horizon_comfort/data/auth_repository.dart';
-import 'package:horizon_comfort/screens/loading_screen.dart';
 import 'package:horizon_comfort/screens/login_screen.dart';
-import 'package:horizon_comfort/screens/register_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,17 +34,20 @@ class MyApp extends StatelessWidget {
             BlocProvider(
                 create: (context) => AuthBloc(
                       authRepository: context.read<AuthRepository>(),
-                      child: null,
                     )),
             BlocProvider(
                 create: (context) => RegisterCubit(
                       authRepository: context.read<AuthRepository>(),
                     )),
+            BlocProvider(
+                create: (context) => LoginCubit(
+                      authRepository: context.read<AuthRepository>(),
+                    )),
           ],
-          child: const RegisterScreen(),
+          child: RegisterScreen(),
         ),
       ),
-      //  onGenerateRoute: AppNavigator.onGenerateRoute,
+      onGenerateRoute: AppNavigator.onGenerateRoute,
       // initialRoute: RegisterScreen.routeName,
     );
   }

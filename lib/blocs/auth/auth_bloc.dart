@@ -13,7 +13,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository;
   StreamSubscription<auth.User?>? _userSubscription;
 
-  AuthBloc({required AuthRepository authRepository, required child})
+  AuthBloc({required AuthRepository authRepository})
       : _authRepository = authRepository,
         super(const AuthState.userUnknown()) {
     _userSubscription = _authRepository.user
