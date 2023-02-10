@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const kBackgroundColor = Color(0x00049fb6);
+
 const kHorizonTextStyle = TextStyle(
   color: Colors.white70,
   fontFamily: 'Horizon',
@@ -16,7 +18,7 @@ const kHorizonTextStyleBold = TextStyle(
 
 const kTextFieldDecoration = InputDecoration(
   filled: true,
-  fillColor: Colors.black54,
+  fillColor: Colors.black87,
   hintText: 'Enter your email',
   hintStyle: TextStyle(
     color: Colors.white,
@@ -33,7 +35,7 @@ const kTextFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(8.0)),
   ),
   focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.white, width: 2.0),
+    borderSide: BorderSide(color: Colors.white, width: 3.0),
     borderRadius: BorderRadius.all(Radius.circular(8.0)),
   ),
 );

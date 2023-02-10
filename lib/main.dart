@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:horizon_comfort/blocs/auth/auth_bloc.dart';
 import 'package:horizon_comfort/cubits/login/login_cubit.dart';
+import 'package:horizon_comfort/screens/home_screen.dart';
 import 'package:horizon_comfort/screens/register_screen.dart';
 import 'cubits/register/register_cubit.dart';
 import 'package:horizon_comfort/config/app_navigator.dart';
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
                       authRepository: context.read<AuthRepository>(),
                     )),
           ],
-          child: RegisterScreen(),
+          child: const HomeScreen(),
         ),
       ),
       onGenerateRoute: AppNavigator.onGenerateRoute,
