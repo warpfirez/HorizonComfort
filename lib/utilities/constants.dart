@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const kBackgroundColor = Color(0x00049fb6);
+const kBackgroundColor = Color(0x00049fb6); // 303030
 
 const kHorizonTextStyle = TextStyle(
   color: Colors.white70,

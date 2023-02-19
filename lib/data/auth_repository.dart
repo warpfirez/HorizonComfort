@@ -26,16 +26,13 @@ class AuthRepository {
     }
   }
 
-  Future<auth.User?> login(
-      {required String email, required String password}) async {
+  Future<void> login({required String email, required String password}) async {
     try {
       final credential =
           await auth.FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      final user = credential.user;
-      return user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');

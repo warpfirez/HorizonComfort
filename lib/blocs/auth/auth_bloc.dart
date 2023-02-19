@@ -20,17 +20,30 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         .listen((user) => add(AuthUserChanged(user: user!)));
   }
 
+  // In bloc v7.2.0, mapEventToState was deprecated in favor of on.
+  // mapEventToState will be removed in bloc v8.0.0.
+  @override
   Stream<AuthState> mapEventToState(
-    AuthState event,
+    AuthEvent event,
   ) async* {
     if (event is AuthUserChanged) {
       try {
-        yield AuthState.userAuthenticated(user: event.user!);
-        _userSubscription?.cancel();
+        yield* _mapAuthUserChangedToState(event);
+
         super.close();
       } catch (e) {
         print(e);
       }
     }
+  }
+
+  Stream<AuthState> _mapAuthUserChangedToState(AuthUserChanged event) async* {
+    yield AuthState.userAuthenticated(user: event.user);
+  }
+
+  @override
+  Future<void> close() {
+    _userSubscription?.cancel();
+    return super.close();
   }
 }

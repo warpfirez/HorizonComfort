@@ -21,7 +21,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     emit(state.copyWith(newPassword: value, newStatus: RegisterStatus.initial));
   }
 
-  void registerWithCredentials() async {
+  Future<void> registerWithCredentials() async {
     if (state.isValid == false) {
       return;
     }
