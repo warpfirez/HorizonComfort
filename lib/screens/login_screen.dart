@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:horizon_comfort/blocs/auth/auth_bloc.dart';
 import 'package:horizon_comfort/cubits/login/login_cubit.dart';
-import 'package:horizon_comfort/screens/loading_screen.dart';
+import 'package:horizon_comfort/screens/menu_screen.dart';
 import 'package:horizon_comfort/screens/register_screen.dart';
 
 import '../utilities/constants.dart';
@@ -18,8 +18,8 @@ class LoginScreen extends StatelessWidget {
     return MaterialPageRoute(
       builder: (context) {
         return BlocProvider.of<AuthBloc>(context).state.status ==
-                AuthStatus.unauthenticated
-            ? const LoadingScreen()
+                AuthStatus.authenticated
+            ? const MenuScreen()
             : const LoginScreen();
       },
       settings: const RouteSettings(name: routeName),
@@ -94,10 +94,9 @@ class LoginScreen extends StatelessWidget {
                       ),
                       CustomElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                            RegisterScreen.routeName,
-                            ModalRoute.withName(LoginScreen.routeName),
-                          );
+                          context.read<LoginCubit>().loginWithCredentials();
+                          print(
+                              BlocProvider.of<AuthBloc>(context).state.status);
                         },
                         text: 'Login',
                       )

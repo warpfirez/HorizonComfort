@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:horizon_comfort/screens/menu_screen.dart';
 import 'package:horizon_comfort/screens/login_screen.dart';
 
 import '../cubits/register/register_cubit.dart';
@@ -107,13 +108,17 @@ class RegisterScreen extends StatelessWidget {
                           ),
                         ),
                         CustomElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             final isValidForm =
                                 formKey.currentState!.validate();
                             if (isValidForm) {
-                              context
-                                  .read<RegisterCubit>()
-                                  .registerWithCredentials();
+                              try {
+                                await context
+                                    .read<RegisterCubit>()
+                                    .registerWithCredentials();
+                              } catch (e) {
+                                print(e);
+                              }
                             }
                           },
                           text: 'Register',

@@ -3,7 +3,7 @@ import 'package:horizon_comfort/screens/loading_screen.dart';
 import 'package:horizon_comfort/screens/login_screen.dart';
 import 'package:horizon_comfort/screens/register_screen.dart';
 
-import '../screens/home_screen.dart';
+import '../screens/menu_screen.dart';
 
 class AppNavigator {
   /// static so the method can be called without creating an object
@@ -17,10 +17,8 @@ class AppNavigator {
         return LoginScreen.route();
       case RegisterScreen.routeName:
         return RegisterScreen.route();
-      case LoadingScreen.routeName:
-        return LoadingScreen.route();
-      case HomeScreen.routeName:
-        return HomeScreen.route();
+      case MenuScreen.routeName:
+        return MenuScreen.route();
       default:
         return _errorRoute();
     }

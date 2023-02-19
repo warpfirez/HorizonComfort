@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:horizon_comfort/blocs/auth/auth_bloc.dart';
 import 'package:horizon_comfort/cubits/login/login_cubit.dart';
-import 'package:horizon_comfort/screens/home_screen.dart';
+import 'package:horizon_comfort/cubits/menu/menu_cubit.dart';
+import 'package:horizon_comfort/data/home_repository.dart';
+import 'package:horizon_comfort/data/search_repository.dart';
+import 'package:horizon_comfort/screens/menu_screen.dart';
 import 'package:horizon_comfort/screens/register_screen.dart';
+import 'package:horizon_comfort/utilities/constants.dart';
 import 'cubits/register/register_cubit.dart';
 import 'package:horizon_comfort/config/app_navigator.dart';
 import 'package:horizon_comfort/data/auth_repository.dart';
@@ -29,6 +33,8 @@ class MyApp extends StatelessWidget {
       home: MultiRepositoryProvider(
         providers: [
           RepositoryProvider(create: (create) => AuthRepository()),
+          RepositoryProvider(create: (create) => HomeRepository()),
+          RepositoryProvider(create: (create) => SearchRepository()),
         ],
         child: MultiBlocProvider(
           providers: [
@@ -44,12 +50,17 @@ class MyApp extends StatelessWidget {
                 create: (context) => LoginCubit(
                       authRepository: context.read<AuthRepository>(),
                     )),
+            BlocProvider(
+                create: (context) => MenuCubit(
+                      homeRepository: context.read<HomeRepository>(),
+                      searchRepository: context.read<SearchRepository>(),
+                    )),
           ],
-          child: const HomeScreen(),
+          child: const MenuScreen(),
         ),
       ),
       onGenerateRoute: AppNavigator.onGenerateRoute,
-      // initialRoute: RegisterScreen.routeName,
+      // initialRoute: LoginScreen.routeName,
     );
   }
 }
