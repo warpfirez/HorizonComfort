@@ -8,7 +8,7 @@ class AuthRepository {
       // pass firebaseAuth in case its null create new instance
       : _firebaseAuth = firebaseAuth ?? auth.FirebaseAuth.instance;
 
-  Future<auth.User?> register({
+  Future<auth.User?> signUp({
     required String email,
     required String password,
   }) async {
@@ -26,7 +26,7 @@ class AuthRepository {
     }
   }
 
-  Future<void> login({required String email, required String password}) async {
+  Future<void> signIn({required String email, required String password}) async {
     try {
       final credential =
           await auth.FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -39,6 +39,14 @@ class AuthRepository {
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
       }
+    }
+  }
+
+  Future<void> signOut() async {
+    try {
+      await auth.FirebaseAuth.instance.signOut();
+    } catch (e) {
+      print(e);
     }
   }
 

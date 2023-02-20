@@ -26,7 +26,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       return;
     }
     try {
-      await _authRepository.register(
+      await _authRepository.signUp(
         email: state.email,
         password: state.password,
       );

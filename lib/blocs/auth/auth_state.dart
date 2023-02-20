@@ -2,11 +2,9 @@ part of 'auth_bloc.dart';
 
 enum AuthStatus { unknown, authenticated, unauthenticated }
 
-class AuthState {
+class AuthState extends Equatable {
   final AuthStatus status;
   final auth.User? user;
-
-  const AuthState(this.status, this.user);
 
   const AuthState.defaultConstructor({
     this.status = AuthStatus.unknown,
@@ -33,14 +31,4 @@ class AuthState {
         status,
         user,
       ];
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is AuthState &&
-          runtimeType == other.runtimeType &&
-          user == other.user;
-
-  @override
-  int get hashCode => user.hashCode;
 }

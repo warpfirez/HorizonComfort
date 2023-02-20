@@ -28,15 +28,15 @@ class CustomArrivalsContainer extends StatelessWidget {
           begin: Alignment.bottomLeft,
           end: Alignment.topRight,
           colors: [
-            Colors.black54,
-            Colors.black12,
+            Color(0xFFAAD2BD),
+            Colors.deepPurple,
           ],
         ),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: const [
-          FittedBox(
+        children: [
+          const FittedBox(
             fit: BoxFit.contain,
             child: Text(
               'New Arrivals',
@@ -48,7 +48,7 @@ class CustomArrivalsContainer extends StatelessWidget {
             fit: BoxFit.contain,
             child: Text(
               'Reebok',
-              style: kHorizonTextStyleBold,
+              style: kHorizonTextStyleBold.copyWith(color: Colors.white70),
             ),
           ),
         ],

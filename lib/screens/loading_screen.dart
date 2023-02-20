@@ -4,7 +4,7 @@ import 'package:lottie/lottie.dart';
 Widget buildLoading(BuildContext context) {
   return Container(
     height: double.infinity,
-    color: Colors.black87,
+    color: const Color(0xFFF5F6EF),
     child: Lottie.asset(
       'animations/loading_animation.json',
       repeat: true,

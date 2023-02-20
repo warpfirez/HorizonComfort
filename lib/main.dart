@@ -4,6 +4,7 @@ import 'package:horizon_comfort/cubits/login/login_cubit.dart';
 import 'package:horizon_comfort/cubits/menu/menu_cubit.dart';
 import 'package:horizon_comfort/data/home_repository.dart';
 import 'package:horizon_comfort/data/search_repository.dart';
+import 'package:horizon_comfort/data/database_repository.dart';
 import 'package:horizon_comfort/screens/menu_screen.dart';
 import 'package:horizon_comfort/screens/register_screen.dart';
 import 'package:horizon_comfort/utilities/constants.dart';
@@ -27,40 +28,43 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-          brightness: Brightness.dark, primaryColor: Colors.teal[900]),
-      home: MultiRepositoryProvider(
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(create: (create) => AuthRepository()),
+        RepositoryProvider(create: (create) => HomeRepository()),
+        RepositoryProvider(create: (create) => SearchRepository()),
+        RepositoryProvider(create: (create) => DatabaseRepository()),
+      ],
+      child: MultiBlocProvider(
         providers: [
-          RepositoryProvider(create: (create) => AuthRepository()),
-          RepositoryProvider(create: (create) => HomeRepository()),
-          RepositoryProvider(create: (create) => SearchRepository()),
+          BlocProvider(
+              create: (context) => AuthBloc(
+                    authRepository: context.read<AuthRepository>(),
+                  )),
+          BlocProvider(
+              create: (context) => RegisterCubit(
+                    authRepository: context.read<AuthRepository>(),
+                  )),
+          BlocProvider(
+              create: (context) => LoginCubit(
+                    authRepository: context.read<AuthRepository>(),
+                  )),
+          BlocProvider(
+              create: (context) => MenuCubit(
+                    homeRepository: context.read<HomeRepository>(),
+                    searchRepository: context.read<SearchRepository>(),
+                    settingsRepository: context.read<DatabaseRepository>(),
+                  )),
         ],
-        child: MultiBlocProvider(
-          providers: [
-            BlocProvider(
-                create: (context) => AuthBloc(
-                      authRepository: context.read<AuthRepository>(),
-                    )),
-            BlocProvider(
-                create: (context) => RegisterCubit(
-                      authRepository: context.read<AuthRepository>(),
-                    )),
-            BlocProvider(
-                create: (context) => LoginCubit(
-                      authRepository: context.read<AuthRepository>(),
-                    )),
-            BlocProvider(
-                create: (context) => MenuCubit(
-                      homeRepository: context.read<HomeRepository>(),
-                      searchRepository: context.read<SearchRepository>(),
-                    )),
-          ],
-          child: const MenuScreen(),
+        child: MaterialApp(
+          theme: ThemeData(
+              canvasColor: const Color(0xFFF5F6EF),
+              brightness: Brightness.light),
+          home: const LoginScreen(),
+          onGenerateRoute: AppNavigator.onGenerateRoute,
+          initialRoute: LoginScreen.routeName,
         ),
       ),
-      onGenerateRoute: AppNavigator.onGenerateRoute,
-      // initialRoute: LoginScreen.routeName,
     );
   }
 }

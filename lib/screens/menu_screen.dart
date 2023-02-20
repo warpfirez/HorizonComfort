@@ -3,13 +3,17 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:horizon_comfort/cubits/menu/menu_cubit.dart';
 import 'package:horizon_comfort/screens/search_screen.dart';
+import 'package:horizon_comfort/screens/settings_screen.dart';
 import 'package:lottie/lottie.dart';
 
+import '../blocs/auth/auth_bloc.dart';
+import '../data/models/user_model.dart';
 import '../utilities/constants.dart';
 import '../widgets/custom_nav_icon.dart';
 import '../widgets/custom_arrivals_container.dart';
 import 'home_screen.dart';
 import 'loading_screen.dart';
+import 'login_screen.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({Key? key}) : super(key: key);
@@ -18,7 +22,12 @@ class MenuScreen extends StatelessWidget {
 
   static Route route() {
     return MaterialPageRoute(
-      builder: (context) => const MenuScreen(),
+      builder: (context) {
+        return BlocProvider.of<AuthBloc>(context).state.status ==
+                AuthStatus.unauthenticated
+            ? const LoginScreen()
+            : const MenuScreen();
+      },
       settings: const RouteSettings(name: routeName),
     );
   }
@@ -39,24 +48,29 @@ class MenuScreen extends StatelessWidget {
           CustomNavIcon(icon: Icons.favorite),
           CustomNavIcon(icon: Icons.person),
         ],
-        color: Colors.black54,
-        buttonBackgroundColor: Colors.black54,
+        color: Colors.black87,
+        buttonBackgroundColor: Colors.black87,
         backgroundColor: kBackgroundColor,
         animationCurve: Curves.easeInOut,
         animationDuration: const Duration(milliseconds: 600),
         onTap: (index) {
-          final pagesCubit = BlocProvider.of<MenuCubit>(context);
+          final menuCubit = BlocProvider.of<MenuCubit>(context);
           print(index);
 
           switch (index) {
             case 0:
               {
-                pagesCubit.getHomePage('dymy');
+                menuCubit.getHomeScreen('dymy');
               }
               break;
             case 1:
               {
-                pagesCubit.getSearchPage('dymy');
+                menuCubit.getSearchScreen('dymy');
+              }
+              break;
+            case 4:
+              {
+                menuCubit.getSettingsScreen();
               }
               break;
           }
@@ -64,24 +78,26 @@ class MenuScreen extends StatelessWidget {
         letIndexChange: (index) => true,
       ),
       body: SafeArea(
-          child: BlocConsumer<MenuCubit, PagesState>(
+          child: BlocConsumer<MenuCubit, MenuState>(
         listener: (context, state) {
-          if (state is PagesError) {
+          if (state is MenuError) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.message)));
           }
         },
         builder: (context, state) {
-          if (state is PagesInitial) {
-            return buildHome("test");
-          } else if (state is PagesLoading) {
+          if (state is MenuInitial) {
+            return buildHome(context, "menu initial");
+          } else if (state is MenuLoading) {
             return buildLoading(context);
-          } else if (state is PagesHome) {
-            return buildHome('home page');
-          } else if (state is PagesSearch) {
-            return buildSearch('search page');
+          } else if (state is MenuHome) {
+            return buildHome(context, 'home screen');
+          } else if (state is MenuSearch) {
+            return buildSearch(context, 'search screen');
+          } else if (state is MenuSettings) {
+            return buildSettings(context, state.user);
           } else {
-            return buildHome('home page');
+            return buildHome(context, 'on exception screen');
           }
         },
       )),

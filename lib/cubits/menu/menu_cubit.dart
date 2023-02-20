@@ -1,39 +1,56 @@
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 
 import '../../data/home_repository.dart';
+import '../../data/models/user_model.dart';
 import '../../data/search_repository.dart';
 import 'package:horizon_comfort/utilities/network.dart';
 
-part 'pages_state.dart';
+import '../../data/database_repository.dart';
 
-class MenuCubit extends Cubit<PagesState> {
+part 'menu_state.dart';
+
+class MenuCubit extends Cubit<MenuState> {
   final HomeRepository _homeRepository;
   final SearchRepository _searchRepository;
+  final DatabaseRepository _databaseRepository;
   MenuCubit({
     required HomeRepository homeRepository,
     required SearchRepository searchRepository,
+    required DatabaseRepository settingsRepository,
   })  : _homeRepository = homeRepository,
         _searchRepository = searchRepository,
-        super(const PagesInitial());
+        _databaseRepository = settingsRepository,
+        super(const MenuInitial());
 
-  Future<void> getHomePage(String homeTestData) async {
+  Future<void> getHomeScreen(String homeTestData) async {
     try {
-      emit(const PagesLoading());
+      emit(const MenuLoading());
       final data = await _homeRepository.fetchData(homeTestData);
-      emit(PagesHome(homeTestData));
+      emit(MenuHome(homeTestData));
     } on NetworkException {
-      emit(const PagesError("Network exception Home Page"));
+      emit(const MenuError("Network exception Home Page"));
     }
   }
 
-  Future<void> getSearchPage(String searchTestData) async {
+  Future<void> getSearchScreen(String searchTestData) async {
     try {
-      emit(const PagesLoading());
+      emit(const MenuLoading());
       final data = await _searchRepository.fetchData(searchTestData);
-      emit(PagesSearch(data));
+      emit(MenuSearch(data));
     } on NetworkException {
-      emit(const PagesError("Network exception Search Page"));
+      emit(const MenuError("Network exception Search Page"));
+    }
+  }
+
+  Future<void> getSettingsScreen() async {
+    try {
+      emit(const MenuLoading());
+      final user = await _databaseRepository.fetchUser();
+      emit(MenuSettings(user));
+    } on NetworkException {
+      emit(const MenuError("Network exception Search Page"));
     }
   }
 }

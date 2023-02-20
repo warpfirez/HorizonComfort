@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:horizon_comfort/screens/menu_screen.dart';
 import 'package:horizon_comfort/screens/login_screen.dart';
 
+import '../cubits/login/login_cubit.dart';
 import '../cubits/register/register_cubit.dart';
 import '../utilities/constants.dart';
 import '../widgets/custom_elevated_button.dart';
@@ -29,10 +30,7 @@ class RegisterScreen extends StatelessWidget {
             autovalidateMode: AutovalidateMode.disabled,
             key: formKey,
             child: Container(
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage('images/NightCityBackground.jpg'))),
+              color: const Color(0xFFF5F6EF),
               child: SafeArea(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -32,10 +32,7 @@ class LoginScreen extends StatelessWidget {
       body: BlocBuilder<LoginCubit, LoginState>(
         builder: (context, state) {
           return Container(
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage('images/NightCityBackground.jpg'))),
+            color: const Color(0xFFF5F6EF),
             child: SafeArea(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -105,7 +102,10 @@ class LoginScreen extends StatelessWidget {
                   GestureDetector(
                     child: const Text("First time? Register here"),
                     onTap: () {
-                      Navigator.pushNamed(context, RegisterScreen.routeName);
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        RegisterScreen.routeName,
+                        ModalRoute.withName(LoginScreen.routeName),
+                      );
                     },
                   ),
                 ],
