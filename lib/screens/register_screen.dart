@@ -5,6 +5,7 @@ import 'package:horizon_comfort/screens/login_screen.dart';
 
 import '../cubits/login/login_cubit.dart';
 import '../cubits/register/register_cubit.dart';
+import '../data/database_repository.dart';
 import '../utilities/constants.dart';
 import '../widgets/custom_elevated_button.dart';
 

@@ -7,7 +7,6 @@ Widget buildSearch(BuildContext context, String searchData) {
     mainAxisAlignment: MainAxisAlignment.spaceAround,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      const CustomArrivalsContainer(),
       Text(searchData),
       Text(searchData),
       Text(searchData),

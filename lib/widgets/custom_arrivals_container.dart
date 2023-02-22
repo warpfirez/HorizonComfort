@@ -10,13 +10,13 @@ class CustomArrivalsContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 32.0),
-      padding: const EdgeInsets.all(8.0),
-      height: 120,
+      padding: const EdgeInsets.all(4.0),
+      height: 90,
       width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-        boxShadow: const [
+      decoration: const BoxDecoration(
+        color: kPastelYellow,
+        borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
+        boxShadow: [
           BoxShadow(
             color: Colors.black38,
             blurRadius: 10.0,
@@ -24,14 +24,16 @@ class CustomArrivalsContainer extends StatelessWidget {
             offset: Offset(0.0, 10.0), // shadow direction: bottom right
           )
         ],
-        gradient: const LinearGradient(
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-          colors: [
-            Color(0xFFAAD2BD),
-            Colors.deepPurple,
-          ],
-        ),
+        // gradient: const LinearGradient(
+        //   begin: Alignment.bottomLeft,
+        //   end: Alignment.topRight,
+        //   colors: [
+        //     //Color(0xFFAAD2BD),
+        //     // Colors.deepPurple,
+        //     Colors.black54,
+        //     Colors.black87,
+        //   ],
+        // ),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -39,16 +41,18 @@ class CustomArrivalsContainer extends StatelessWidget {
           const FittedBox(
             fit: BoxFit.contain,
             child: Text(
-              'New Arrivals',
+              'Always tax free',
               style:
-                  TextStyle(fontWeight: FontWeight.w900, color: Colors.white70),
+                  TextStyle(fontWeight: FontWeight.w900, color: Colors.black87),
             ),
           ),
           FittedBox(
             fit: BoxFit.contain,
             child: Text(
-              'Reebok',
-              style: kHorizonTextStyleBold.copyWith(color: Colors.white70),
+              'Horizon Comfort',
+              style: kHorizonTextStyleBold.copyWith(
+                color: Colors.black87,
+              ),
             ),
           ),
         ],

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:horizon_comfort/data/models/shoe_model.dart';
 import 'package:meta/meta.dart';
 
 import '../../data/home_repository.dart';
@@ -15,6 +16,7 @@ class MenuCubit extends Cubit<MenuState> {
   final HomeRepository _homeRepository;
   final SearchRepository _searchRepository;
   final DatabaseRepository _databaseRepository;
+
   MenuCubit({
     required HomeRepository homeRepository,
     required SearchRepository searchRepository,
@@ -24,11 +26,11 @@ class MenuCubit extends Cubit<MenuState> {
         _databaseRepository = settingsRepository,
         super(const MenuInitial());
 
-  Future<void> getHomeScreen(String homeTestData) async {
+  Future<void> getHomeScreen() async {
     try {
       emit(const MenuLoading());
-      final data = await _homeRepository.fetchData(homeTestData);
-      emit(MenuHome(homeTestData));
+      final shoes = await _databaseRepository.fetchShoes();
+      emit(MenuHome(shoes));
     } on NetworkException {
       emit(const MenuError("Network exception Home Page"));
     }

@@ -60,7 +60,7 @@ class MenuScreen extends StatelessWidget {
           switch (index) {
             case 0:
               {
-                menuCubit.getHomeScreen('dymy');
+                menuCubit.getHomeScreen();
               }
               break;
             case 1:
@@ -87,17 +87,17 @@ class MenuScreen extends StatelessWidget {
         },
         builder: (context, state) {
           if (state is MenuInitial) {
-            return buildHome(context, "menu initial");
+            return buildLoading(context);
           } else if (state is MenuLoading) {
             return buildLoading(context);
           } else if (state is MenuHome) {
-            return buildHome(context, 'home screen');
+            return buildHome(context, state.shoes);
           } else if (state is MenuSearch) {
             return buildSearch(context, 'search screen');
           } else if (state is MenuSettings) {
             return buildSettings(context, state.user);
           } else {
-            return buildHome(context, 'on exception screen');
+            return buildLoading(context);
           }
         },
       )),

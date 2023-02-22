@@ -15,6 +15,12 @@ Widget buildSettings(BuildContext context, UserModel user) {
       Text(user.id!),
       Text(user.email!),
       GestureDetector(
+        child: const Text("fetch all shoes"),
+        onTap: () {
+          RepositoryProvider.of<DatabaseRepository>(context).fetchShoes();
+        },
+      ),
+      GestureDetector(
         child: const Text("add user"),
         onTap: () {
           RepositoryProvider.of<DatabaseRepository>(context)

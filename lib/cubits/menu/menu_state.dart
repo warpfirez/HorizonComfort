@@ -14,19 +14,19 @@ class MenuLoading extends MenuState {
 }
 
 class MenuHome extends MenuState {
-  final String homeData;
+  final List<Object?> shoes;
 
-  const MenuHome(this.homeData);
+  const MenuHome(this.shoes);
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is MenuHome &&
           runtimeType == other.runtimeType &&
-          homeData == other.homeData;
+          shoes == other.shoes;
 
   @override
-  int get hashCode => homeData.hashCode;
+  int get hashCode => shoes.hashCode;
 }
 
 class MenuSearch extends MenuState {

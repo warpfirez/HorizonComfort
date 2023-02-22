@@ -58,8 +58,9 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           theme: ThemeData(
-              canvasColor: const Color(0xFFF5F6EF),
-              brightness: Brightness.light),
+            canvasColor: kBackgroundColor,
+            brightness: Brightness.light,
+          ),
           home: const LoginScreen(),
           onGenerateRoute: AppNavigator.onGenerateRoute,
           initialRoute: LoginScreen.routeName,
