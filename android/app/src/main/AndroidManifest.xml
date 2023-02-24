@@ -1,6 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.warpfirez.horizon_comfort">
-   <application
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
         android:label="horizon_comfort"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
@@ -32,3 +35,4 @@
             android:value="2" />
     </application>
 </manifest>
+

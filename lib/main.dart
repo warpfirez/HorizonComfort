@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:horizon_comfort/blocs/auth/auth_bloc.dart';
+import 'package:horizon_comfort/blocs/shoe/shoe_bloc.dart';
 import 'package:horizon_comfort/cubits/login/login_cubit.dart';
 import 'package:horizon_comfort/cubits/menu/menu_cubit.dart';
-import 'package:horizon_comfort/data/home_repository.dart';
 import 'package:horizon_comfort/data/search_repository.dart';
 import 'package:horizon_comfort/data/database_repository.dart';
 import 'package:horizon_comfort/screens/menu_screen.dart';
@@ -31,7 +31,6 @@ class MyApp extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(create: (create) => AuthRepository()),
-        RepositoryProvider(create: (create) => HomeRepository()),
         RepositoryProvider(create: (create) => SearchRepository()),
         RepositoryProvider(create: (create) => DatabaseRepository()),
       ],
@@ -41,6 +40,7 @@ class MyApp extends StatelessWidget {
               create: (context) => AuthBloc(
                     authRepository: context.read<AuthRepository>(),
                   )),
+          BlocProvider(create: (context) => ShoeBloc()),
           BlocProvider(
               create: (context) => RegisterCubit(
                     authRepository: context.read<AuthRepository>(),
@@ -51,7 +51,6 @@ class MyApp extends StatelessWidget {
                   )),
           BlocProvider(
               create: (context) => MenuCubit(
-                    homeRepository: context.read<HomeRepository>(),
                     searchRepository: context.read<SearchRepository>(),
                     settingsRepository: context.read<DatabaseRepository>(),
                   )),

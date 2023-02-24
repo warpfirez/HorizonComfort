@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:horizon_comfort/screens/loading_screen.dart';
 import 'package:horizon_comfort/screens/login_screen.dart';
 import 'package:horizon_comfort/screens/register_screen.dart';
+import 'package:horizon_comfort/screens/shoe_screen.dart';
 
 import '../screens/menu_screen.dart';
 
@@ -19,6 +20,8 @@ class AppNavigator {
         return RegisterScreen.route();
       case MenuScreen.routeName:
         return MenuScreen.route();
+      case ShoeScreen.routeName:
+        return ShoeScreen.route();
       default:
         return _errorRoute();
     }

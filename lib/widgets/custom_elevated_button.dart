@@ -5,6 +5,7 @@ class CustomElevatedButton extends StatelessWidget {
   final String text;
   final String? email;
   final String? password;
+  final Size? minimumSize;
 
   const CustomElevatedButton({
     Key? key,
@@ -12,6 +13,7 @@ class CustomElevatedButton extends StatelessWidget {
     required this.text,
     this.email,
     this.password,
+    this.minimumSize = const Size(250, 50),
   }) : super(key: key);
 
   @override
@@ -19,7 +21,7 @@ class CustomElevatedButton extends StatelessWidget {
     return ElevatedButton(
       style: ButtonStyle(
         elevation: MaterialStateProperty.all(20),
-        minimumSize: MaterialStateProperty.all(const Size(250, 50)),
+        minimumSize: MaterialStateProperty.all(minimumSize),
         backgroundColor: MaterialStateProperty.all(Colors.black87),
         overlayColor: MaterialStateProperty.all(Colors.teal[900]),
         shadowColor: MaterialStateProperty.all(Colors.brown[900]),

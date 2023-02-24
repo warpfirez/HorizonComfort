@@ -42,8 +42,11 @@ class CustomArrivalsContainer extends StatelessWidget {
             fit: BoxFit.contain,
             child: Text(
               'Always tax free',
-              style:
-                  TextStyle(fontWeight: FontWeight.w900, color: Colors.black87),
+              style: TextStyle(
+                fontWeight: FontWeight.w900,
+                fontFamily: 'BPtypewrite',
+                color: Colors.black87,
+              ),
             ),
           ),
           FittedBox(

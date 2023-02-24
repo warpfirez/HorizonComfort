@@ -7,6 +7,7 @@ import 'package:horizon_comfort/screens/settings_screen.dart';
 import 'package:lottie/lottie.dart';
 
 import '../blocs/auth/auth_bloc.dart';
+import '../blocs/auth/auth_bloc.dart';
 import '../data/models/user_model.dart';
 import '../utilities/constants.dart';
 import '../widgets/custom_nav_icon.dart';
@@ -23,6 +24,15 @@ class MenuScreen extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute(
       builder: (context) {
+        return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
+          if (state.status == AuthStatus.authenticated) {
+            print("twuj stary 1");
+            return const LoginScreen();
+          } else {
+            print("twuj stary 2");
+            return const MenuScreen();
+          }
+        });
         return BlocProvider.of<AuthBloc>(context).state.status ==
                 AuthStatus.unauthenticated
             ? const LoginScreen()

@@ -95,3 +95,6 @@ flutter:
     - family: Horizon
       fonts:
         - asset: fonts/Horizon.ttf
+    - family: BPtypewrite
+      fonts:
+        - asset: fonts/BPtypewrite.otf

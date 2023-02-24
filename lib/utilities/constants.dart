@@ -12,6 +12,20 @@ const kHorizonTextStyle = TextStyle(
   fontWeight: FontWeight.w600,
 );
 
+const kTypewriterTitleBoldTextStyle = TextStyle(
+  fontWeight: FontWeight.w700,
+  fontFamily: 'BPtypewrite',
+  fontSize: 26,
+  color: Colors.black,
+);
+
+const kTypewriterTextStyle = TextStyle(
+  fontWeight: FontWeight.w200,
+  fontFamily: 'BPtypewrite',
+  fontSize: 20,
+  color: Colors.black,
+);
+
 const kHorizonTextStyleBold = TextStyle(
   color: Colors.black87,
   fontFamily: 'Horizon',

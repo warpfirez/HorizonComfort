@@ -14,7 +14,7 @@ class MenuLoading extends MenuState {
 }
 
 class MenuHome extends MenuState {
-  final List<Object?> shoes;
+  final List<ShoeModel> shoes;
 
   const MenuHome(this.shoes);
 

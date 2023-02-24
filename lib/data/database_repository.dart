@@ -44,15 +44,18 @@ class DatabaseRepository {
     );
   }
 
-  Future<List<Object?>> fetchShoes() async {
-    //TODO
-    // Get docs from collection reference
-    QuerySnapshot querySnapshot = await shoes.get();
+  Future<List<ShoeModel>> fetchShoes() async {
+    QuerySnapshot<Map<String, dynamic>> snapshot =
+        await _firebaseFirestore.collection("shoes").get();
 
-    // Get data from docs and convert map to List
-    final allShoes = querySnapshot.docs.map((doc) => doc.data()).toList();
+    List<ShoeModel> allShoes = [];
+    for (var document in snapshot.docs) {
+      ShoeModel object = ShoeModel.fromDocumentSnapshot(document);
+      allShoes.add(object);
+    }
 
-    print(allShoes);
-    return allShoes;
+    return Future.delayed(const Duration(milliseconds: 500), () {
+      return allShoes;
+    });
   }
 }

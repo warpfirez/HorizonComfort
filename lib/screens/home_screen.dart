@@ -5,9 +5,10 @@ import 'package:horizon_comfort/data/models/shoe_model.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../blocs/auth/auth_bloc.dart';
+import '../utilities/constants.dart';
 import '../widgets/custom_arrivals_container.dart';
 
-Widget buildHome(BuildContext context, List<Object?> shoes) {
+Widget buildHome(BuildContext context, List<ShoeModel> shoes) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 16),
     child: Column(
@@ -18,24 +19,25 @@ Widget buildHome(BuildContext context, List<Object?> shoes) {
         const SizedBox(height: 14),
         const Text(
           "New Arrivals",
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 26,
-            color: Colors.black,
-          ),
+          style: kTypewriterTitleBoldTextStyle,
         ),
         Expanded(
           child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: ShoeModel.shoes.length,
               itemBuilder: (BuildContext context, int index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    // child: Image.network(ShoeModel.shoes[index].pictureUrl),
-                    child: Text(shoes[index].toString()),
+                return GestureDetector(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(ShoeModel.shoes[index].pictureUrl!),
+                      //child: Text(shoes[index].toString()),
+                    ),
                   ),
+                  onTap: () {
+                    Navigator.pushNamed(context, 'ShoeScreen');
+                  },
                 );
               }),
         ),
@@ -43,12 +45,7 @@ Widget buildHome(BuildContext context, List<Object?> shoes) {
           padding: EdgeInsets.only(bottom: 4),
           child: Text(
             "Most Popular",
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 26,
-              color: Colors.black,
-              letterSpacing: 1,
-            ),
+            style: kTypewriterTitleBoldTextStyle,
           ),
         ),
         Expanded(
@@ -65,7 +62,8 @@ Widget buildHome(BuildContext context, List<Object?> shoes) {
                 padding: const EdgeInsets.all(8),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.network(ShoeModel.shoes[index].pictureUrlCandid),
+                  child:
+                      Image.network(ShoeModel.shoes[index].pictureUrlCandid!),
                 ),
               );
             },

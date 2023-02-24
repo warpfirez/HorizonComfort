@@ -3,18 +3,18 @@ import 'package:equatable/equatable.dart';
 
 class ShoeModel extends Equatable {
   final String id;
-  final String name;
-  final String pictureUrl;
-  final String pictureUrlCandid;
-  final String condition;
-  final String brand;
-  final double size;
-  final double price;
+  final String? name;
+  final String? pictureUrl;
+  final String? pictureUrlCandid;
+  final String? condition;
+  final String? brand;
+  final int? size;
+  final int? price;
 
   const ShoeModel({
+    required this.id,
     required this.pictureUrlCandid,
     required this.name,
-    required this.id,
     required this.pictureUrl,
     required this.condition,
     required this.brand,
@@ -22,18 +22,30 @@ class ShoeModel extends Equatable {
     required this.price,
   });
 
-  static ShoeModel fromSnapshot(DocumentSnapshot snap) {
-    ShoeModel shoe = ShoeModel(
-      id: snap.id,
-      name: snap['name'],
-      pictureUrl: snap['pictureUrl'],
-      pictureUrlCandid: snap['pictureUrlCandid'],
-      condition: snap['color'],
-      brand: snap['company'],
-      size: snap['size'],
-      price: snap['price'],
-    );
-    return shoe;
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'pictureUrlCandid': pictureUrlCandid,
+      'name': name,
+      'pictureUrl': pictureUrl,
+      'condition': condition,
+      'brand': brand,
+      'size': size,
+      'price': price,
+    };
+  }
+
+  factory ShoeModel.fromDocumentSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> snap) {
+    return ShoeModel(
+        id: snap.id,
+        name: snap.data()!["name"] as String?,
+        pictureUrl: snap.data()!["pictureUrl"] as String?,
+        pictureUrlCandid: snap.data()!["pictureUrlCandid"] as String?,
+        condition: snap.data()!["condition"] as String?,
+        brand: snap.data()!["brand"] as String?,
+        size: snap.data()!["size"] as int?,
+        price: snap.data()!["price"] as int?);
   }
 
   static List<ShoeModel> shoes = <ShoeModel>[
@@ -50,7 +62,7 @@ class ShoeModel extends Equatable {
       price: 299,
     ),
     const ShoeModel(
-      id: '2',
+      id: '1',
       name: 'nike sb dunk low pro qs neckface',
       pictureUrl:
           'https://cdn2.bigcommerce.com/server3500/jxr0taf/products/47704/images/239332/IMG_7542__19271.1675291908.571.429.jpg?c=2',
@@ -62,7 +74,7 @@ class ShoeModel extends Equatable {
       price: 200,
     ),
     const ShoeModel(
-      id: '2',
+      id: '1',
       name: 'nike dunk low lthr / ow off white michigan',
       pictureUrl:
           'https://cdn2.bigcommerce.com/server3500/jxr0taf/products/47584/images/238790/IMG_1137__62823.1673987321.800.800.jpg?c=2',
@@ -74,7 +86,7 @@ class ShoeModel extends Equatable {
       price: 599,
     ),
     const ShoeModel(
-      id: '2',
+      id: '1',
       name: 'nike dunk low premium sb ms. pacman',
       pictureUrl:
           'https://cdn2.bigcommerce.com/server3500/jxr0taf/products/41920/images/207603/IMG_9135__70647.1644972626.800.800.jpg?c=2',
@@ -86,7 +98,7 @@ class ShoeModel extends Equatable {
       price: 499,
     ),
     const ShoeModel(
-      id: '2',
+      id: '1',
       name: 'yeezy boost 350 v2 beluga reflective 2021',
       pictureUrl:
           'https://cdn2.bigcommerce.com/server3500/jxr0taf/products/47533/images/238570/IMG_9058__46691.1673750826.800.800.jpg?c=2',
@@ -98,7 +110,7 @@ class ShoeModel extends Equatable {
       price: 899,
     ),
     const ShoeModel(
-      id: '2',
+      id: '1',
       name: 'zx 8000 w superearth',
       pictureUrl:
           'https://cdn2.bigcommerce.com/server3500/jxr0taf/products/47837/images/240003/IMG_6250__40172.1676338274.800.800.jpg?c=2',
@@ -113,5 +125,6 @@ class ShoeModel extends Equatable {
 
   @override
   // TODO: implement props
-  List<Object?> get props => [id, pictureUrl, brand, brand, size];
+  List<Object?> get props =>
+      [id, name, pictureUrl, pictureUrlCandid, condition, brand, size, price];
 }
