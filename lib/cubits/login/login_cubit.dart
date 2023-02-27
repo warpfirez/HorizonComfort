@@ -3,13 +3,19 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:meta/meta.dart';
 
 import '../../data/auth_repository.dart';
+import '../../data/database_repository.dart';
 
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   final AuthRepository _authRepository;
-  LoginCubit({required AuthRepository authRepository})
+  final DatabaseRepository _databaseRepository;
+
+  LoginCubit(
+      {required AuthRepository authRepository,
+      required DatabaseRepository databaseRepository})
       : _authRepository = authRepository,
+        _databaseRepository = databaseRepository,
         super(LoginState.initial());
 
   void emailChanged(String value) {
@@ -20,12 +26,19 @@ class LoginCubit extends Cubit<LoginState> {
     emit(state.copyWith(newPassword: value, newStatus: LoginStatus.initial));
   }
 
-  Future<void> loginWithCredentials() async {
+  void loginWithCredentials() async {
     if (state.isValid == false) {
       return;
     }
     try {
-      _authRepository.signIn(email: state.email, password: state.password);
+      await _authRepository.signIn(
+          email: state.email, password: state.password);
+
+      await _databaseRepository.addUser(
+        email: state.email,
+        // favouritesIds: [],
+        // cartIds: [],
+      );
 
       emit(state.copyWith(newStatus: LoginStatus.success));
     } catch (e) {

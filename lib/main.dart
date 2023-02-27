@@ -48,6 +48,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(
               create: (context) => LoginCubit(
                     authRepository: context.read<AuthRepository>(),
+                    databaseRepository: context.read<DatabaseRepository>(),
                   )),
           BlocProvider(
               create: (context) => MenuCubit(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:horizon_comfort/cubits/menu/menu_cubit.dart';
+import 'package:horizon_comfort/screens/cart_screen.dart';
 import 'package:horizon_comfort/screens/search_screen.dart';
 import 'package:horizon_comfort/screens/settings_screen.dart';
 import 'package:lottie/lottie.dart';
@@ -24,15 +25,13 @@ class MenuScreen extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute(
       builder: (context) {
-        return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
-          if (state.status == AuthStatus.authenticated) {
-            print("twuj stary 1");
-            return const LoginScreen();
-          } else {
-            print("twuj stary 2");
-            return const MenuScreen();
-          }
-        });
+        // return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
+        //   if (state.status == AuthStatus.authenticated) {
+        //     return const LoginScreen();
+        //   } else {
+        //     return const MenuScreen();
+        //   }
+        // });
         return BlocProvider.of<AuthBloc>(context).state.status ==
                 AuthStatus.unauthenticated
             ? const LoginScreen()
@@ -78,6 +77,11 @@ class MenuScreen extends StatelessWidget {
                 menuCubit.getSearchScreen('dymy');
               }
               break;
+            case 2:
+              {
+                menuCubit.getCartScreen();
+              }
+              break;
             case 4:
               {
                 menuCubit.getSettingsScreen();
@@ -104,6 +108,8 @@ class MenuScreen extends StatelessWidget {
             return buildHome(context, state.shoes);
           } else if (state is MenuSearch) {
             return buildSearch(context, 'search screen');
+          } else if (state is MenuCart) {
+            return buildCart(context, 'cart screen');
           } else if (state is MenuSettings) {
             return buildSettings(context, state.user);
           } else {

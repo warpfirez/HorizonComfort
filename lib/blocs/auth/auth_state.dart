@@ -27,6 +27,18 @@ class AuthState extends Equatable {
           status: AuthStatus.unauthenticated,
         );
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      super == other &&
+          other is AuthState &&
+          runtimeType == other.runtimeType &&
+          user == other.user;
+
+  @override
+  int get hashCode => super.hashCode ^ user.hashCode;
+
+  @override
   List<Object?> get props => [
         status,
         user,

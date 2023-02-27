@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:horizon_comfort/data/auth_repository.dart';
 import 'package:horizon_comfort/data/models/shoe_model.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:horizon_comfort/screens/shoe_screen.dart';
 
 import '../blocs/auth/auth_bloc.dart';
 import '../utilities/constants.dart';
@@ -31,12 +32,17 @@ Widget buildHome(BuildContext context, List<ShoeModel> shoes) {
                     padding: const EdgeInsets.all(8),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.network(ShoeModel.shoes[index].pictureUrl!),
+                      child: Image.network(shoes[index].pictureUrl!),
                       //child: Text(shoes[index].toString()),
                     ),
                   ),
                   onTap: () {
-                    Navigator.pushNamed(context, 'ShoeScreen');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ShoeScreen(
+                                  shoe: shoes[index],
+                                )));
                   },
                 );
               }),
@@ -58,12 +64,21 @@ Widget buildHome(BuildContext context, List<ShoeModel> shoes) {
             ),
             itemCount: ShoeModel.shoes.length,
             itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(8),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child:
-                      Image.network(ShoeModel.shoes[index].pictureUrlCandid!),
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ShoeScreen(
+                                shoe: shoes[index],
+                              )));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(shoes[index].pictureUrlCandid!),
+                  ),
                 ),
               );
             },

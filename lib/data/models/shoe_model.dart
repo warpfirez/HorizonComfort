@@ -6,6 +6,7 @@ class ShoeModel extends Equatable {
   final String? name;
   final String? pictureUrl;
   final String? pictureUrlCandid;
+  final Map<String, dynamic>? galleryUrl;
   final String? condition;
   final String? brand;
   final int? size;
@@ -16,6 +17,7 @@ class ShoeModel extends Equatable {
     required this.pictureUrlCandid,
     required this.name,
     required this.pictureUrl,
+    required this.galleryUrl,
     required this.condition,
     required this.brand,
     required this.size,
@@ -28,6 +30,7 @@ class ShoeModel extends Equatable {
       'pictureUrlCandid': pictureUrlCandid,
       'name': name,
       'pictureUrl': pictureUrl,
+      'galleryUrl': galleryUrl,
       'condition': condition,
       'brand': brand,
       'size': size,
@@ -38,19 +41,21 @@ class ShoeModel extends Equatable {
   factory ShoeModel.fromDocumentSnapshot(
       DocumentSnapshot<Map<String, dynamic>> snap) {
     return ShoeModel(
-        id: snap.id,
-        name: snap.data()!["name"] as String?,
-        pictureUrl: snap.data()!["pictureUrl"] as String?,
-        pictureUrlCandid: snap.data()!["pictureUrlCandid"] as String?,
-        condition: snap.data()!["condition"] as String?,
-        brand: snap.data()!["brand"] as String?,
-        size: snap.data()!["size"] as int?,
-        price: snap.data()!["price"] as int?);
+      id: snap.id,
+      name: snap.data()!["name"] as String?,
+      pictureUrl: snap.data()!["pictureUrl"] as String?,
+      pictureUrlCandid: snap.data()!["pictureUrlCandid"] as String?,
+      condition: snap.data()!["condition"] as String?,
+      brand: snap.data()!["brand"] as String?,
+      size: snap.data()!["size"] as int?,
+      price: snap.data()!["price"] as int?,
+      galleryUrl: snap.data()!["galleryUrl"] as Map<String, dynamic>?,
+    );
   }
 
   static List<ShoeModel> shoes = <ShoeModel>[
     const ShoeModel(
-      id: '1',
+      id: '0',
       name: 'lebron xiii (13) db doernbecher',
       pictureUrl:
           'https://cdn2.bigcommerce.com/server3500/jxr0taf/products/36064/images/176027/IMG_1859__47325.1614563266.800.800.jpg?c=2',
@@ -60,6 +65,14 @@ class ShoeModel extends Equatable {
       brand: 'nike',
       size: 36,
       price: 299,
+      galleryUrl: {
+        '0':
+            'https://cdn2.bigcommerce.com/server3500/jxr0taf/products/47704/images/239332/IMG_7542__19271.1675291908.800.800.jpg?c=2',
+        '1':
+            'https://cdn2.bigcommerce.com/server3500/jxr0taf/products/47704/images/239333/IMG_7545__52494.1675291908.800.800.jpg?c=2',
+        '2':
+            'https://cdn2.bigcommerce.com/server3500/jxr0taf/products/47704/images/239334/IMG_7543__53722.1675291908.800.800.jpg?c=2',
+      },
     ),
     const ShoeModel(
       id: '1',
@@ -72,9 +85,10 @@ class ShoeModel extends Equatable {
       brand: 'nike',
       size: 40,
       price: 200,
+      galleryUrl: {},
     ),
     const ShoeModel(
-      id: '1',
+      id: '2',
       name: 'nike dunk low lthr / ow off white michigan',
       pictureUrl:
           'https://cdn2.bigcommerce.com/server3500/jxr0taf/products/47584/images/238790/IMG_1137__62823.1673987321.800.800.jpg?c=2',
@@ -84,9 +98,10 @@ class ShoeModel extends Equatable {
       brand: 'nike',
       size: 36,
       price: 599,
+      galleryUrl: {},
     ),
     const ShoeModel(
-      id: '1',
+      id: '3',
       name: 'nike dunk low premium sb ms. pacman',
       pictureUrl:
           'https://cdn2.bigcommerce.com/server3500/jxr0taf/products/41920/images/207603/IMG_9135__70647.1644972626.800.800.jpg?c=2',
@@ -96,9 +111,10 @@ class ShoeModel extends Equatable {
       brand: 'nike',
       size: 42,
       price: 499,
+      galleryUrl: {},
     ),
     const ShoeModel(
-      id: '1',
+      id: '4',
       name: 'yeezy boost 350 v2 beluga reflective 2021',
       pictureUrl:
           'https://cdn2.bigcommerce.com/server3500/jxr0taf/products/47533/images/238570/IMG_9058__46691.1673750826.800.800.jpg?c=2',
@@ -108,9 +124,10 @@ class ShoeModel extends Equatable {
       brand: 'adidas',
       size: 40,
       price: 899,
+      galleryUrl: {},
     ),
     const ShoeModel(
-      id: '1',
+      id: '5',
       name: 'zx 8000 w superearth',
       pictureUrl:
           'https://cdn2.bigcommerce.com/server3500/jxr0taf/products/47837/images/240003/IMG_6250__40172.1676338274.800.800.jpg?c=2',
@@ -120,6 +137,7 @@ class ShoeModel extends Equatable {
       brand: 'adidas',
       size: 40,
       price: 130,
+      galleryUrl: {},
     ),
   ];
 

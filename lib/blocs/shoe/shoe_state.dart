@@ -11,8 +11,8 @@ abstract class ShoeState extends Equatable {
 class ShoeStateInitial extends ShoeState {}
 
 class ShoeUpdateIndex extends ShoeState {
-  final int index;
-  const ShoeUpdateIndex({required this.index});
+  final int galleryIndex;
+  const ShoeUpdateIndex({required this.galleryIndex});
 
   @override
   bool operator ==(Object other) =>
@@ -20,8 +20,8 @@ class ShoeUpdateIndex extends ShoeState {
       super == other &&
           other is ShoeUpdateIndex &&
           runtimeType == other.runtimeType &&
-          index == other.index;
+          galleryIndex == other.galleryIndex;
 
   @override
-  int get hashCode => super.hashCode ^ index.hashCode;
+  int get hashCode => super.hashCode ^ galleryIndex.hashCode;
 }

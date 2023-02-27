@@ -61,6 +61,22 @@ class MenuSettings extends MenuState {
   int get hashCode => user.hashCode;
 }
 
+class MenuCart extends MenuState {
+  final UserModel user;
+
+  const MenuCart(this.user);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is MenuCart &&
+          runtimeType == other.runtimeType &&
+          user == other.user;
+
+  @override
+  int get hashCode => user.hashCode;
+}
+
 class MenuError extends MenuState {
   final String message;
   const MenuError(this.message);

@@ -15,16 +15,15 @@ Widget buildSettings(BuildContext context, UserModel user) {
       Text(user.id!),
       Text(user.email!),
       GestureDetector(
-        child: const Text("fetch all shoes"),
+        child: const Text("fetch shoe by id"),
         onTap: () {
-          RepositoryProvider.of<DatabaseRepository>(context).fetchShoes();
+          RepositoryProvider.of<DatabaseRepository>(context)
+              .fetchShoeById('2dh0hO5XF7mF183Jmw2e');
         },
       ),
       GestureDetector(
         child: const Text("add user"),
         onTap: () {
-          RepositoryProvider.of<DatabaseRepository>(context)
-              .addUser('test@gmail.com');
           print(BlocProvider.of<AuthBloc>(context).state.status);
         },
       ),

@@ -3,14 +3,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 
 import '../../data/auth_repository.dart';
+import '../../data/database_repository.dart';
 
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
   final AuthRepository _authRepository;
 
-  RegisterCubit({required AuthRepository authRepository})
-      : _authRepository = authRepository,
+  RegisterCubit({
+    required AuthRepository authRepository,
+  })  : _authRepository = authRepository,
         super(RegisterState.initial());
 
   void emailChanged(String value) {

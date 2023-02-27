@@ -12,10 +12,22 @@ class DatabaseRepository {
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   CollectionReference shoes = FirebaseFirestore.instance.collection('shoes');
 
-  Future<void> addUser(String email) {
+  Future<void> addUser({
+    required String email,
+    List<String> favouritesIds = const [],
+    List<String> cartIds = const ['1', '2'],
+  }) async {
     return users
         .doc(FirebaseAuth.instance.currentUser?.uid)
-        .set({'email': email, 'age': 18})
+        .set(
+          {
+            'email': email,
+            'id': FirebaseAuth.instance.currentUser?.uid,
+            'favouritesIds': favouritesIds,
+            'cartIds': cartIds,
+          },
+          // SetOptions(merge: true),
+        )
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
   }
@@ -36,11 +48,17 @@ class DatabaseRepository {
         .catchError((error) => print("Failed to update user: $error"));
   }
 
-  Future<UserModel> fetchUser() async {
+  Future<UserModel> fetchUser(String? id) async {
+    var collection = _firebaseFirestore.collection('users');
+    var snapshot = await collection.doc(id).get();
+
+    return UserModel.fromDocumentSnapshot(snapshot);
+
     return UserModel(
       id: FirebaseAuth.instance.currentUser?.uid,
       email: FirebaseAuth.instance.currentUser?.email,
-      favorites: [],
+      favouritesIds: [],
+      cartIds: [],
     );
   }
 
@@ -57,5 +75,22 @@ class DatabaseRepository {
     return Future.delayed(const Duration(milliseconds: 500), () {
       return allShoes;
     });
+  }
+
+  Future<ShoeModel> fetchShoeById(String id) async {
+    var collection = _firebaseFirestore.collection('shoes');
+    var snapshot = await collection.doc(id).get();
+
+    return ShoeModel.fromDocumentSnapshot(snapshot);
+  }
+
+  Future<void> addShoeToUserCart(String? shoeId) {
+    return users
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .update({
+          'cartIds': FieldValue.arrayUnion([shoeId])
+        })
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
   }
 }

@@ -45,8 +45,20 @@ class MenuCubit extends Cubit<MenuState> {
   Future<void> getSettingsScreen() async {
     try {
       emit(const MenuLoading());
-      final user = await _databaseRepository.fetchUser();
+      final user = await _databaseRepository
+          .fetchUser(FirebaseAuth.instance.currentUser?.uid);
       emit(MenuSettings(user));
+    } on NetworkException {
+      emit(const MenuError("Network exception Search Page"));
+    }
+  }
+
+  Future<void> getCartScreen() async {
+    try {
+      emit(const MenuLoading());
+      final user = await _databaseRepository
+          .fetchUser(FirebaseAuth.instance.currentUser?.uid);
+      emit(MenuCart(user));
     } on NetworkException {
       emit(const MenuError("Network exception Search Page"));
     }

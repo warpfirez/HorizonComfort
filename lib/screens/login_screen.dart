@@ -5,6 +5,7 @@ import 'package:horizon_comfort/cubits/login/login_cubit.dart';
 import 'package:horizon_comfort/screens/menu_screen.dart';
 import 'package:horizon_comfort/screens/register_screen.dart';
 
+import '../data/database_repository.dart';
 import '../utilities/constants.dart';
 import '../widgets/custom_elevated_button.dart';
 
@@ -90,8 +91,10 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                       CustomElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           context.read<LoginCubit>().loginWithCredentials();
+                          RepositoryProvider.of<DatabaseRepository>(context)
+                              .addUser(email: state.email);
                           print(
                               BlocProvider.of<AuthBloc>(context).state.status);
                         },
