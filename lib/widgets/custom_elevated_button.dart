@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:horizon_comfort/utilities/constants.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final Function()? onPressed;
@@ -23,7 +24,7 @@ class CustomElevatedButton extends StatelessWidget {
         elevation: MaterialStateProperty.all(20),
         minimumSize: MaterialStateProperty.all(minimumSize),
         backgroundColor: MaterialStateProperty.all(Colors.black87),
-        overlayColor: MaterialStateProperty.all(Colors.teal[900]),
+        overlayColor: MaterialStateProperty.all(kPastelGreen),
         shadowColor: MaterialStateProperty.all(Colors.brown[900]),
       ),
       onPressed: onPressed,

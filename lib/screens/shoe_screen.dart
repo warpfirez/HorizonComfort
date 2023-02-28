@@ -103,10 +103,9 @@ class ShoeScreen extends StatelessWidget {
             CustomElevatedButton(
               minimumSize: const Size(300, 50),
               onPressed: () {
-                print(shoe?.id);
+                print('Adding shoe to cart: ${shoe?.id}');
                 RepositoryProvider.of<DatabaseRepository>(context)
                     .addShoeToUserCart(shoe?.id);
-                print('Adding to cart');
               },
               text: 'Add to cart',
             ),

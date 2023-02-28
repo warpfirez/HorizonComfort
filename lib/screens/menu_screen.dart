@@ -109,7 +109,8 @@ class MenuScreen extends StatelessWidget {
           } else if (state is MenuSearch) {
             return buildSearch(context, 'search screen');
           } else if (state is MenuCart) {
-            return buildCart(context, 'cart screen');
+            return buildCart(
+                context, state.user, state.shoesInCart, state.totalPrice);
           } else if (state is MenuSettings) {
             return buildSettings(context, state.user);
           } else {

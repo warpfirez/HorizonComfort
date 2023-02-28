@@ -56,9 +56,21 @@ class MenuCubit extends Cubit<MenuState> {
   Future<void> getCartScreen() async {
     try {
       emit(const MenuLoading());
+
       final user = await _databaseRepository
           .fetchUser(FirebaseAuth.instance.currentUser?.uid);
-      emit(MenuCart(user));
+      List<ShoeModel> shoesInCart = [];
+      int totalPrice = 0;
+
+      for (String shoeId in user.cartIds) {
+        shoesInCart.add(await _databaseRepository.fetchShoeById(shoeId));
+      }
+
+      for (var id = 0; id < shoesInCart.length; id++) {
+        totalPrice += shoesInCart[id].price!.toInt();
+      }
+
+      emit(MenuCart(user, shoesInCart, totalPrice));
     } on NetworkException {
       emit(const MenuError("Network exception Search Page"));
     }

@@ -90,7 +90,7 @@ class DatabaseRepository {
         .update({
           'cartIds': FieldValue.arrayUnion([shoeId])
         })
-        .then((value) => print("User Updated"))
-        .catchError((error) => print("Failed to update user: $error"));
+        .then((value) => print("Added to cart"))
+        .catchError((error) => print("Failed adding to cart: $error"));
   }
 }

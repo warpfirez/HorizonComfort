@@ -63,18 +63,20 @@ class MenuSettings extends MenuState {
 
 class MenuCart extends MenuState {
   final UserModel user;
+  final List<ShoeModel> shoesInCart;
+  final int totalPrice;
 
-  const MenuCart(this.user);
+  const MenuCart(this.user, this.shoesInCart, this.totalPrice);
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is MenuCart &&
           runtimeType == other.runtimeType &&
-          user == other.user;
+          shoesInCart == other.shoesInCart;
 
   @override
-  int get hashCode => user.hashCode;
+  int get hashCode => shoesInCart.hashCode;
 }
 
 class MenuError extends MenuState {
