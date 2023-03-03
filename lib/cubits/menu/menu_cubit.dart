@@ -22,6 +22,12 @@ class MenuCubit extends Cubit<MenuState> {
         _databaseRepository = settingsRepository,
         super(const MenuInitial());
 
+  // Future<void> menuInitial() async {
+  //   emit(const MenuLoading());
+  //   final shoes = await _databaseRepository.fetchShoes();
+  //   emit(MenuHome(shoes));
+  // }
+
   Future<void> getHomeScreen() async {
     try {
       emit(const MenuLoading());
@@ -61,6 +67,33 @@ class MenuCubit extends Cubit<MenuState> {
           .fetchUser(FirebaseAuth.instance.currentUser?.uid);
       List<ShoeModel> shoesInCart = [];
       int totalPrice = 0;
+
+      for (String shoeId in user.cartIds) {
+        shoesInCart.add(await _databaseRepository.fetchShoeById(shoeId));
+      }
+
+      for (var id = 0; id < shoesInCart.length; id++) {
+        totalPrice += shoesInCart[id].price!.toInt();
+      }
+
+      emit(MenuCart(user, shoesInCart, totalPrice));
+    } on NetworkException {
+      emit(const MenuError("Network exception Search Page"));
+    }
+  }
+
+  Future<void> removeCartItem(String shoeId) async {
+    try {
+      emit(const MenuLoading());
+
+      List<ShoeModel> shoesInCart = [];
+      int totalPrice = 0;
+
+      await _databaseRepository.removeCartItem(shoeId);
+      print("deleted $shoeId");
+
+      var user = await _databaseRepository
+          .fetchUser(FirebaseAuth.instance.currentUser?.uid);
 
       for (String shoeId in user.cartIds) {
         shoesInCart.add(await _databaseRepository.fetchShoeById(shoeId));

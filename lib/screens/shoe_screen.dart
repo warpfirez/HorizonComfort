@@ -44,6 +44,8 @@ class ShoeScreen extends StatelessWidget {
                   builder: (context, state) {
                     if (state is ShoeUpdateIndex) {
                       return Container(
+                        width: 300,
+                        height: 215,
                         margin: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
                             color: Colors.black, border: Border.all(width: 5)),
@@ -54,6 +56,7 @@ class ShoeScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                             child: SizedBox(
                               width: 300,
+                              height: 215,
                               child: Image.network(
                                 (shoe?.galleryUrl![
                                     state.galleryIndex.toString()])!,
@@ -106,6 +109,9 @@ class ShoeScreen extends StatelessWidget {
                 print('Adding shoe to cart: ${shoe?.id}');
                 RepositoryProvider.of<DatabaseRepository>(context)
                     .addShoeToUserCart(shoe?.id);
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text("Added to cart!"),
+                ));
               },
               text: 'Add to cart',
             ),

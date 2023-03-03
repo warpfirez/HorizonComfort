@@ -93,4 +93,14 @@ class DatabaseRepository {
         .then((value) => print("Added to cart"))
         .catchError((error) => print("Failed adding to cart: $error"));
   }
+
+  Future<void> removeCartItem(String? shoeId) async {
+    return users
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .update({
+          'cartIds': FieldValue.arrayRemove([shoeId])
+        })
+        .then((value) => print("Removed from cart"))
+        .catchError((error) => print("Failed removing from cart: $error"));
+  }
 }

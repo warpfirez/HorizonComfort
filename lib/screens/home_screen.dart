@@ -32,7 +32,7 @@ Widget buildHome(BuildContext context, List<ShoeModel> shoes) {
                     padding: const EdgeInsets.all(8),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.network(shoes[index].pictureUrl!),
+                      child: Image.network(shoes[index].galleryUrl!['0']!),
                       //child: Text(shoes[index].toString()),
                     ),
                   ),
