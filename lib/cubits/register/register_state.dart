@@ -6,11 +6,17 @@ enum RegisterStatus { initial, submitting, success, error }
 class RegisterState {
   final String email;
   final String password;
+  final String passwordConfirm;
+  final String fullName;
+  final String phone;
   final RegisterStatus status;
 
   const RegisterState({
     required this.email,
     required this.password,
+    required this.passwordConfirm,
+    required this.fullName,
+    required this.phone,
     required this.status,
   });
 
@@ -19,6 +25,9 @@ class RegisterState {
     return const RegisterState(
       email: '',
       password: '',
+      passwordConfirm: '',
+      fullName: '',
+      phone: '',
       status: RegisterStatus.initial,
     );
   }
@@ -27,6 +36,9 @@ class RegisterState {
   RegisterState copyWith({
     String? newEmail,
     String? newPassword,
+    String? newPasswordConfirm,
+    String? newFullName,
+    String? newPhone,
     RegisterStatus? newStatus,
   }) {
     /// when this method gets called it returns a new RegisterState with
@@ -37,6 +49,9 @@ class RegisterState {
       // if newEmail isn't null email is set to newEmail
       email: newEmail ?? email,
       password: newPassword ?? password,
+      passwordConfirm: newPasswordConfirm ?? passwordConfirm,
+      fullName: newFullName ?? fullName,
+      phone: newPhone ?? phone,
       status: newStatus ?? status,
     );
   }

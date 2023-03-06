@@ -14,6 +14,8 @@ class DatabaseRepository {
 
   Future<void> addUser({
     required String email,
+    required String fullName,
+    required String phoneNumber,
     List<String> favouritesIds = const [],
     List<String> cartIds = const ['1', '2'],
   }) async {
@@ -23,6 +25,8 @@ class DatabaseRepository {
           {
             'email': email,
             'id': FirebaseAuth.instance.currentUser?.uid,
+            'fullName': fullName,
+            'phoneNumber': phoneNumber,
             'favouritesIds': favouritesIds,
             'cartIds': cartIds,
           },
@@ -54,12 +58,12 @@ class DatabaseRepository {
 
     return UserModel.fromDocumentSnapshot(snapshot);
 
-    return UserModel(
-      id: FirebaseAuth.instance.currentUser?.uid,
-      email: FirebaseAuth.instance.currentUser?.email,
-      favouritesIds: [],
-      cartIds: [],
-    );
+    // return UserModel(
+    //   id: FirebaseAuth.instance.currentUser?.uid,
+    //   email: FirebaseAuth.instance.currentUser?.email,
+    //   favouritesIds: [],
+    //   cartIds: [],
+    // );
   }
 
   Future<List<ShoeModel>> fetchShoes() async {

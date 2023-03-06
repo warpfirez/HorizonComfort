@@ -9,13 +9,10 @@ part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   final AuthRepository _authRepository;
-  final DatabaseRepository _databaseRepository;
 
-  LoginCubit(
-      {required AuthRepository authRepository,
-      required DatabaseRepository databaseRepository})
-      : _authRepository = authRepository,
-        _databaseRepository = databaseRepository,
+  LoginCubit({
+    required AuthRepository authRepository,
+  })  : _authRepository = authRepository,
         super(LoginState.initial());
 
   void emailChanged(String value) {
@@ -33,12 +30,6 @@ class LoginCubit extends Cubit<LoginState> {
     try {
       await _authRepository.signIn(
           email: state.email, password: state.password);
-
-      await _databaseRepository.addUser(
-        email: state.email,
-        // favouritesIds: [],
-        // cartIds: [],
-      );
 
       emit(state.copyWith(newStatus: LoginStatus.success));
     } catch (e) {

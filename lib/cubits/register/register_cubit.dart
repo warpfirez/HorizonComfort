@@ -9,10 +9,13 @@ part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
   final AuthRepository _authRepository;
+  final DatabaseRepository _databaseRepository;
 
   RegisterCubit({
     required AuthRepository authRepository,
+    required DatabaseRepository databaseRepository,
   })  : _authRepository = authRepository,
+        _databaseRepository = databaseRepository,
         super(RegisterState.initial());
 
   void emailChanged(String value) {
@@ -23,6 +26,19 @@ class RegisterCubit extends Cubit<RegisterState> {
     emit(state.copyWith(newPassword: value, newStatus: RegisterStatus.initial));
   }
 
+  void passwordConfirmChanged(String value) {
+    emit(state.copyWith(
+        newPasswordConfirm: value, newStatus: RegisterStatus.initial));
+  }
+
+  void fullNameChanged(String value) {
+    emit(state.copyWith(newFullName: value, newStatus: RegisterStatus.initial));
+  }
+
+  void phoneChanged(String value) {
+    emit(state.copyWith(newPhone: value, newStatus: RegisterStatus.initial));
+  }
+
   Future<void> registerWithCredentials() async {
     if (state.isValid == false) {
       return;
@@ -31,6 +47,19 @@ class RegisterCubit extends Cubit<RegisterState> {
       await _authRepository.signUp(
         email: state.email,
         password: state.password,
+      );
+
+      await _authRepository.signIn(
+        email: state.email,
+        password: state.password,
+      );
+
+      await _databaseRepository.addUser(
+        email: state.email,
+        fullName: state.fullName,
+        phoneNumber: state.phone,
+        favouritesIds: [],
+        cartIds: [],
       );
 
       emit(state.copyWith(newStatus: RegisterStatus.success));

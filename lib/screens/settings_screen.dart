@@ -46,7 +46,7 @@ Widget buildSettings(BuildContext context, UserModel user) {
         height: 45,
       ),
       Text(
-        user.email!,
+        user.fullName!,
         style: kTypewriterTitleBoldTextStyle.copyWith(fontSize: 24),
       ),
       Padding(
@@ -65,12 +65,12 @@ Widget buildSettings(BuildContext context, UserModel user) {
                 children: [
                   Row(
                     children: [
-                      const Icon(Icons.pin_drop_outlined),
+                      const Icon(Icons.mail_outline),
                       const SizedBox(
                         width: 10,
                       ),
                       Text(
-                        user.id!,
+                        user.email!,
                         style: kTypewriterTextStyle.copyWith(fontSize: 16),
                       ),
                     ],
@@ -94,7 +94,7 @@ Widget buildSettings(BuildContext context, UserModel user) {
                         width: 10,
                       ),
                       Text(
-                        '+1 516 213 251',
+                        user.phoneNumber!,
                         style: kTypewriterTextStyle.copyWith(fontSize: 16),
                       ),
                     ],
@@ -106,7 +106,7 @@ Widget buildSettings(BuildContext context, UserModel user) {
                       child: Row(
                         children: [
                           Icon(
-                            Icons.edit,
+                            Icons.edit_outlined,
                             size: 30,
                             color: Colors.green[800],
                           ),
@@ -122,6 +122,31 @@ Widget buildSettings(BuildContext context, UserModel user) {
                       ),
                     ),
                   ),
+                  InkWell(
+                      onTap: () {
+                        final authCubit = BlocProvider.of<AuthBloc>(context);
+                        authCubit.add(SignOut());
+                        print(BlocProvider.of<AuthBloc>(context).state.status);
+                      },
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.logout_outlined,
+                            size: 30,
+                            color: Colors.green[800],
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            'Sign out',
+                            style: kTypewriterTitleBoldTextStyle.copyWith(
+                              fontSize: 20,
+                              color: Colors.green[800],
+                            ),
+                          ),
+                        ],
+                      )),
                 ],
               ),
             )),

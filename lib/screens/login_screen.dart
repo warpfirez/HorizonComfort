@@ -93,8 +93,7 @@ class LoginScreen extends StatelessWidget {
                       CustomElevatedButton(
                         onPressed: () async {
                           context.read<LoginCubit>().loginWithCredentials();
-                          RepositoryProvider.of<DatabaseRepository>(context)
-                              .addUser(email: state.email);
+
                           print(
                               BlocProvider.of<AuthBloc>(context).state.status);
                         },

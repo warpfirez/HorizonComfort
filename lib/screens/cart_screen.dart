@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:horizon_comfort/utilities/constants.dart';
 
+import '../blocs/auth/auth_bloc.dart';
 import '../cubits/menu/menu_cubit.dart';
 import '../data/models/shoe_model.dart';
 import '../data/models/user_model.dart';
