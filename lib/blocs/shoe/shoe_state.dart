@@ -24,4 +24,7 @@ class ShoeUpdateIndex extends ShoeState {
 
   @override
   int get hashCode => super.hashCode ^ galleryIndex.hashCode;
+
+  @override
+  List<Object> get props => [galleryIndex];
 }

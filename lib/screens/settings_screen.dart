@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:horizon_comfort/data/auth_repository.dart';
 import 'package:horizon_comfort/data/database_repository.dart';
+import 'package:horizon_comfort/screens/menu_screen.dart';
 import 'package:horizon_comfort/utilities/constants.dart';
 
 import '../blocs/auth/auth_bloc.dart';
 import '../data/models/user_model.dart';
 import '../widgets/custom_arrivals_container.dart';
+import 'edit_profile_screen.dart';
 
 Widget buildSettings(BuildContext context, UserModel user) {
   return Column(
@@ -31,13 +33,20 @@ Widget buildSettings(BuildContext context, UserModel user) {
               ),
               child: const Center()),
           const Positioned(
-              bottom: -35,
+              bottom: -40,
               child: SizedBox(
-                width: 90,
-                height: 90,
+                width: 100,
+                height: 100,
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80'),
+                  backgroundColor: kBackgroundColor,
+                  child: SizedBox(
+                    width: 90,
+                    height: 90,
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80'),
+                    ),
+                  ),
                 ),
               )),
         ],
@@ -100,7 +109,12 @@ Widget buildSettings(BuildContext context, UserModel user) {
                     ],
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        EditProfileDetailsScreen.routeName,
+                        ModalRoute.withName(MenuScreen.routeName),
+                      );
+                    },
                     child: Padding(
                       padding: const EdgeInsets.only(top: 5),
                       child: Row(

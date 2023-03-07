@@ -3,6 +3,7 @@ import 'package:horizon_comfort/blocs/auth/auth_bloc.dart';
 import 'package:horizon_comfort/blocs/shoe/shoe_bloc.dart';
 import 'package:horizon_comfort/cubits/login/login_cubit.dart';
 import 'package:horizon_comfort/cubits/menu/menu_cubit.dart';
+import 'package:horizon_comfort/cubits/profile/profile_cubit.dart';
 import 'package:horizon_comfort/data/search_repository.dart';
 import 'package:horizon_comfort/data/database_repository.dart';
 import 'package:horizon_comfort/screens/menu_screen.dart';
@@ -43,6 +44,11 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => ShoeBloc()),
           BlocProvider(
               create: (context) => RegisterCubit(
+                    authRepository: context.read<AuthRepository>(),
+                    databaseRepository: context.read<DatabaseRepository>(),
+                  )),
+          BlocProvider(
+              create: (context) => ProfileCubit(
                     authRepository: context.read<AuthRepository>(),
                     databaseRepository: context.read<DatabaseRepository>(),
                   )),

@@ -17,7 +17,7 @@ class DatabaseRepository {
     required String fullName,
     required String phoneNumber,
     List<String> favouritesIds = const [],
-    List<String> cartIds = const ['1', '2'],
+    List<String> cartIds = const [],
   }) async {
     return users
         .doc(FirebaseAuth.instance.currentUser?.uid)
@@ -44,10 +44,22 @@ class DatabaseRepository {
         .catchError((error) => print("Failed to delete user: $error"));
   }
 
-  Future<void> updateUser() {
+  Future<void> updateUser({
+    required String newEmail,
+    required String newFullName,
+    required String newPhone,
+  }) async {
+    User userAuth = FirebaseAuth.instance.currentUser!;
+
+    await userAuth.updateEmail(newEmail);
+
     return users
         .doc(FirebaseAuth.instance.currentUser?.uid)
-        .update({'new field': 'new data'})
+        .update({
+          'email': newEmail,
+          'fullName': newFullName,
+          'phoneNumber': newPhone,
+        })
         .then((value) => print("User Updated"))
         .catchError((error) => print("Failed to update user: $error"));
   }
@@ -57,13 +69,6 @@ class DatabaseRepository {
     var snapshot = await collection.doc(id).get();
 
     return UserModel.fromDocumentSnapshot(snapshot);
-
-    // return UserModel(
-    //   id: FirebaseAuth.instance.currentUser?.uid,
-    //   email: FirebaseAuth.instance.currentUser?.email,
-    //   favouritesIds: [],
-    //   cartIds: [],
-    // );
   }
 
   Future<List<ShoeModel>> fetchShoes() async {
