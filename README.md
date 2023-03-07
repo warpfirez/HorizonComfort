@@ -1,4 +1,4 @@
-# horizon_comfort
+Horizon Comform
 
 Flutter e-commerce app for shoes shopping.
 
