@@ -3,6 +3,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:horizon_comfort/cubits/menu/menu_cubit.dart';
 import 'package:horizon_comfort/screens/cart_screen.dart';
+import 'package:horizon_comfort/screens/onboarding_screen.dart';
 import 'package:horizon_comfort/screens/search_screen.dart';
 import 'package:horizon_comfort/screens/settings_screen.dart';
 import 'package:lottie/lottie.dart';
@@ -101,7 +102,7 @@ class MenuScreen extends StatelessWidget {
         },
         builder: (context, state) {
           if (state is MenuInitial) {
-            return buildLoading(context);
+            return buildOnboarding();
           } else if (state is MenuLoading) {
             return buildLoading(context);
           } else if (state is MenuHome) {

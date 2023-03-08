@@ -90,6 +90,7 @@ class MenuCubit extends Cubit<MenuState> {
       int totalPrice = 0;
 
       await _databaseRepository.removeCartItem(shoeId);
+
       print("deleted $shoeId");
 
       var user = await _databaseRepository
