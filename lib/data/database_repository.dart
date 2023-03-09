@@ -1,10 +1,6 @@
-import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:horizon_comfort/data/models/shoe_model.dart';
-import 'models/user_model.dart';
-
-import '../utilities/network.dart';
 import 'models/user_model.dart';
 
 class DatabaseRepository {
@@ -111,5 +107,23 @@ class DatabaseRepository {
         })
         .then((value) => print("Removed from cart"))
         .catchError((error) => print("Failed removing from cart: $error"));
+  }
+
+  Future<List<ShoeModel>> filterShoes({required String name}) async {
+    QuerySnapshot<Map<String, dynamic>> snapshot =
+        await _firebaseFirestore.collection("shoes").get();
+
+    List<ShoeModel> filteredShoes = [];
+
+    for (var document in snapshot.docs) {
+      ShoeModel object = ShoeModel.fromDocumentSnapshot(document);
+      if (object.name!.contains(name)) {
+        filteredShoes.add(object);
+      }
+    }
+
+    print(filteredShoes);
+
+    return filteredShoes;
   }
 }

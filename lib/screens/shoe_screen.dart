@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:horizon_comfort/blocs/shoe/shoe_bloc.dart';
-
-import '../data/database_repository.dart';
-import '../data/models/shoe_model.dart';
-import '../utilities/constants.dart';
-import '../widgets/custom_elevated_button.dart';
-import '../widgets/custom_gallery_button.dart';
+import 'package:horizon_comfort/data/database_repository.dart';
+import 'package:horizon_comfort/data/models/shoe_model.dart';
+import 'package:horizon_comfort/utilities/constants.dart';
+import 'package:horizon_comfort/widgets/custom_elevated_button.dart';
+import 'package:horizon_comfort/widgets/custom_gallery_button.dart';
 
 class ShoeScreen extends StatelessWidget {
   const ShoeScreen({Key? key, this.shoe}) : super(key: key);
@@ -54,14 +53,10 @@ class ShoeScreen extends StatelessWidget {
                           minScale: 0.1,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            child: SizedBox(
-                              width: 300,
-                              height: 215,
-                              child: Image.network(
-                                (shoe?.galleryUrl![
-                                    state.galleryIndex.toString()])!,
-                                fit: BoxFit.fitHeight,
-                              ),
+                            child: Image.network(
+                              (shoe?.galleryUrl![
+                                  state.galleryIndex.toString()])!,
+                              fit: BoxFit.fitHeight,
                             ),
                             //child: Text(shoes[index].toString()),
                           ),
@@ -69,6 +64,8 @@ class ShoeScreen extends StatelessWidget {
                       );
                     }
                     return Container(
+                      width: 300,
+                      height: 215,
                       margin: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                           color: Colors.black, border: Border.all(width: 5)),
@@ -77,12 +74,9 @@ class ShoeScreen extends StatelessWidget {
                         minScale: 0.1,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: SizedBox(
-                            width: 300,
-                            child: Image.network(
-                              (shoe?.galleryUrl!['0'])!,
-                              fit: BoxFit.fitHeight,
-                            ),
+                          child: Image.network(
+                            (shoe?.galleryUrl!['0'])!,
+                            fit: BoxFit.fitHeight,
                           ),
                           //child: Text(shoes[index].toString()),
                         ),

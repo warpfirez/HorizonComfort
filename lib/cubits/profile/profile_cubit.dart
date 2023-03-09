@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-
-import '../../data/auth_repository.dart';
-import '../../data/database_repository.dart';
+import 'package:horizon_comfort/data/auth_repository.dart';
+import 'package:horizon_comfort/data/database_repository.dart';
 
 part 'profile_state.dart';
 

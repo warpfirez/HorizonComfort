@@ -6,17 +6,12 @@ import 'package:horizon_comfort/screens/cart_screen.dart';
 import 'package:horizon_comfort/screens/onboarding_screen.dart';
 import 'package:horizon_comfort/screens/search_screen.dart';
 import 'package:horizon_comfort/screens/settings_screen.dart';
-import 'package:lottie/lottie.dart';
-
-import '../blocs/auth/auth_bloc.dart';
-import '../blocs/auth/auth_bloc.dart';
-import '../data/models/user_model.dart';
-import '../utilities/constants.dart';
-import '../widgets/custom_nav_icon.dart';
-import '../widgets/custom_arrivals_container.dart';
-import 'home_screen.dart';
-import 'loading_screen.dart';
-import 'login_screen.dart';
+import 'package:horizon_comfort/blocs/auth/auth_bloc.dart';
+import 'package:horizon_comfort/utilities/constants.dart';
+import 'package:horizon_comfort/widgets/custom_nav_icon.dart';
+import 'package:horizon_comfort/screens/home_screen.dart';
+import 'package:horizon_comfort/screens/loading_screen.dart';
+import 'package:horizon_comfort/screens/login_screen.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({Key? key}) : super(key: key);
@@ -26,13 +21,6 @@ class MenuScreen extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute(
       builder: (context) {
-        // return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
-        //   if (state.status == AuthStatus.authenticated) {
-        //     return const LoginScreen();
-        //   } else {
-        //     return const MenuScreen();
-        //   }
-        // });
         return BlocProvider.of<AuthBloc>(context).state.status ==
                 AuthStatus.unauthenticated
             ? const LoginScreen()
@@ -41,6 +29,11 @@ class MenuScreen extends StatelessWidget {
       settings: const RouteSettings(name: routeName),
     );
   }
+
+  //  BlocListener<AuthBloc, AuthState>(listener: (context, state) {
+  // if (state.status == AuthStatus.authenticated) {
+  //  const LoginScreen();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -93,31 +86,40 @@ class MenuScreen extends StatelessWidget {
         letIndexChange: (index) => true,
       ),
       body: SafeArea(
-          child: BlocConsumer<MenuCubit, MenuState>(
+          child: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state is MenuError) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.message)));
+          if (state.status == AuthStatus.unauthenticated) {
+            Navigator.of(context).pushReplacementNamed(
+              LoginScreen.routeName,
+            );
           }
         },
-        builder: (context, state) {
-          if (state is MenuInitial) {
-            return buildOnboarding();
-          } else if (state is MenuLoading) {
-            return buildLoading(context);
-          } else if (state is MenuHome) {
-            return buildHome(context, state.shoes);
-          } else if (state is MenuSearch) {
-            return buildSearch(context, 'search screen');
-          } else if (state is MenuCart) {
-            return buildCart(
-                context, state.user, state.shoesInCart, state.totalPrice);
-          } else if (state is MenuSettings) {
-            return buildSettings(context, state.user);
-          } else {
-            return buildLoading(context);
-          }
-        },
+        child: BlocConsumer<MenuCubit, MenuState>(
+          listener: (context, state) {
+            if (state is MenuError) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(state.message)));
+            }
+          },
+          builder: (context, state) {
+            if (state is MenuInitial) {
+              return buildOnboarding();
+            } else if (state is MenuLoading) {
+              return buildLoading(context);
+            } else if (state is MenuHome) {
+              return buildHome(context, state.shoes);
+            } else if (state is MenuSearch) {
+              return const BuildSearch();
+            } else if (state is MenuCart) {
+              return buildCart(
+                  context, state.user, state.shoesInCart, state.totalPrice);
+            } else if (state is MenuSettings) {
+              return buildSettings(context, state.user);
+            } else {
+              return buildLoading(context);
+            }
+          },
+        ),
       )),
     );
   }

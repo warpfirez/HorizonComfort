@@ -1,16 +1,22 @@
 part of 'menu_cubit.dart';
 
 @immutable
-abstract class MenuState {
+abstract class MenuState extends Equatable {
   const MenuState();
 }
 
 class MenuInitial extends MenuState {
   const MenuInitial();
+
+  @override
+  List<Object?> get props => [];
 }
 
 class MenuLoading extends MenuState {
   const MenuLoading();
+
+  @override
+  List<Object?> get props => [];
 }
 
 class MenuHome extends MenuState {
@@ -27,22 +33,29 @@ class MenuHome extends MenuState {
 
   @override
   int get hashCode => shoes.hashCode;
+
+  @override
+  List<Object?> get props => [shoes];
 }
 
 class MenuSearch extends MenuState {
-  final String searchData;
+  final List<ShoeModel> shoesFiltered;
 
-  const MenuSearch(this.searchData);
+  MenuSearch({List<ShoeModel>? shoesFiltered})
+      : shoesFiltered = shoesFiltered ?? [];
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is MenuSearch &&
           runtimeType == other.runtimeType &&
-          searchData == other.searchData;
+          shoesFiltered == other.shoesFiltered;
 
   @override
-  int get hashCode => searchData.hashCode;
+  int get hashCode => shoesFiltered.hashCode;
+
+  @override
+  List<Object?> get props => [shoesFiltered];
 }
 
 class MenuSettings extends MenuState {
@@ -59,6 +72,9 @@ class MenuSettings extends MenuState {
 
   @override
   int get hashCode => user.hashCode;
+
+  @override
+  List<Object?> get props => [user];
 }
 
 class MenuCart extends MenuState {
@@ -69,14 +85,7 @@ class MenuCart extends MenuState {
   const MenuCart(this.user, this.shoesInCart, this.totalPrice);
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is MenuCart &&
-          runtimeType == other.runtimeType &&
-          shoesInCart == other.shoesInCart;
-
-  @override
-  int get hashCode => shoesInCart.hashCode;
+  List<Object?> get props => [user, shoesInCart, totalPrice];
 }
 
 class MenuError extends MenuState {
@@ -84,12 +93,5 @@ class MenuError extends MenuState {
   const MenuError(this.message);
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is MenuError &&
-          runtimeType == other.runtimeType &&
-          message == other.message;
-
-  @override
-  int get hashCode => message.hashCode;
+  List<Object?> get props => [message];
 }
