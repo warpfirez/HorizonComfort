@@ -8,6 +8,9 @@ class AuthRepository {
       // pass firebaseAuth in case its null create new instance
       : _firebaseAuth = firebaseAuth ?? auth.FirebaseAuth.instance;
 
+  // stream informing whether something changed in the user object
+  Stream<auth.User?> get user => _firebaseAuth.userChanges();
+
   Future<auth.User?> signUp({
     required String email,
     required String password,
@@ -49,9 +52,6 @@ class AuthRepository {
       print(e);
     }
   }
-
-  // stream informing whether something changed in the user object
-  Stream<auth.User?> get user => _firebaseAuth.userChanges();
 }
 
 class NetworkException implements Exception {}

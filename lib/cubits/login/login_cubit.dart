@@ -1,9 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:meta/meta.dart';
-
-import '../../data/auth_repository.dart';
-import '../../data/database_repository.dart';
+import 'package:horizon_comfort/data/auth_repository.dart';
 
 part 'login_state.dart';
 

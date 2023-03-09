@@ -5,8 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
-
-import '../../data/auth_repository.dart';
+import 'package:horizon_comfort/data/auth_repository.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -19,6 +18,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       : _authRepository = authRepository,
         super(const AuthState.userUnknown()) {
     on<AuthUserChanged>(_onAuthUserChanged);
+
     _userSubscription = _authRepository.user.listen(
       (user) => add(
         AuthUserChanged(user: user),

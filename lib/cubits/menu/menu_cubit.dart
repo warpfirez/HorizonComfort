@@ -1,10 +1,9 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:horizon_comfort/data/models/shoe_model.dart';
 import 'package:meta/meta.dart';
-
-import '../../data/models/user_model.dart';
-import '../../data/search_repository.dart';
+import 'package:horizon_comfort/data/models/user_model.dart';
 import 'package:horizon_comfort/utilities/network.dart';
 
 import '../../data/database_repository.dart';
@@ -12,25 +11,17 @@ import '../../data/database_repository.dart';
 part 'menu_state.dart';
 
 class MenuCubit extends Cubit<MenuState> {
-  final SearchRepository _searchRepository;
   final DatabaseRepository _databaseRepository;
 
   MenuCubit({
-    required SearchRepository searchRepository,
     required DatabaseRepository settingsRepository,
-  })  : _searchRepository = searchRepository,
-        _databaseRepository = settingsRepository,
+  })  : _databaseRepository = settingsRepository,
         super(const MenuInitial());
-
-  // Future<void> menuInitial() async {
-  //   emit(const MenuLoading());
-  //   final shoes = await _databaseRepository.fetchShoes();
-  //   emit(MenuHome(shoes));
-  // }
 
   Future<void> getHomeScreen() async {
     try {
       emit(const MenuLoading());
+      //TODO fetch best price/ another filter
       final shoes = await _databaseRepository.fetchShoes();
       emit(MenuHome(shoes));
     } on NetworkException {
@@ -41,8 +32,8 @@ class MenuCubit extends Cubit<MenuState> {
   Future<void> getSearchScreen(String searchTestData) async {
     try {
       emit(const MenuLoading());
-      final data = await _searchRepository.fetchData(searchTestData);
-      emit(MenuSearch(data));
+
+      emit(MenuSearch());
     } on NetworkException {
       emit(const MenuError("Network exception Search Page"));
     }

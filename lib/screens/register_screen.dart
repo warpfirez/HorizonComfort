@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:horizon_comfort/data/auth_repository.dart';
-import 'package:horizon_comfort/screens/menu_screen.dart';
 import 'package:horizon_comfort/screens/login_screen.dart';
-
-import '../cubits/login/login_cubit.dart';
-import '../cubits/register/register_cubit.dart';
-import '../data/database_repository.dart';
-import '../utilities/constants.dart';
-import '../widgets/custom_elevated_button.dart';
+import 'package:horizon_comfort/cubits/register/register_cubit.dart';
+import 'package:horizon_comfort/utilities/constants.dart';
+import 'package:horizon_comfort/widgets/custom_elevated_button.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({Key? key}) : super(key: key);
@@ -188,12 +183,12 @@ class RegisterScreen extends StatelessWidget {
                             ),
                           ),
                           CustomElevatedButton(
-                            onPressed: () async {
+                            onPressed: () {
                               final isValidForm =
                                   formKey.currentState!.validate();
                               if (isValidForm) {
                                 try {
-                                  await context
+                                  context
                                       .read<RegisterCubit>()
                                       .registerWithCredentials();
                                 } catch (e) {

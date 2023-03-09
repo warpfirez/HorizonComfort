@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../utilities/constants.dart';
+import 'package:horizon_comfort/utilities/constants.dart';
 
 class CustomGalleryButton extends StatelessWidget {
   final Function()? myFunction;

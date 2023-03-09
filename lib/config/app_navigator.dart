@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:horizon_comfort/screens/loading_screen.dart';
 import 'package:horizon_comfort/screens/login_screen.dart';
 import 'package:horizon_comfort/screens/register_screen.dart';
 import 'package:horizon_comfort/screens/shoe_screen.dart';
-
-import '../screens/edit_profile_screen.dart';
-import '../screens/menu_screen.dart';
+import 'package:horizon_comfort/screens/edit_profile_screen.dart';
+import 'package:horizon_comfort/screens/menu_screen.dart';
 
 class AppNavigator {
   /// static so the method can be called without creating an object

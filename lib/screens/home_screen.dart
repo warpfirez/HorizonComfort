@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:horizon_comfort/data/auth_repository.dart';
 import 'package:horizon_comfort/data/models/shoe_model.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:horizon_comfort/screens/shoe_screen.dart';
-
-import '../blocs/auth/auth_bloc.dart';
-import '../utilities/constants.dart';
-import '../widgets/custom_arrivals_container.dart';
+import 'package:horizon_comfort/utilities/constants.dart';
+import 'package:horizon_comfort/widgets/custom_arrivals_container.dart';
 
 Widget buildHome(BuildContext context, List<ShoeModel> shoes) {
   return Padding(
@@ -25,7 +21,7 @@ Widget buildHome(BuildContext context, List<ShoeModel> shoes) {
         Expanded(
           child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: ShoeModel.shoes.length,
+              itemCount: shoes.length,
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
                   child: Padding(
@@ -62,7 +58,7 @@ Widget buildHome(BuildContext context, List<ShoeModel> shoes) {
             gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
             ),
-            itemCount: ShoeModel.shoes.length,
+            itemCount: shoes.length,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
