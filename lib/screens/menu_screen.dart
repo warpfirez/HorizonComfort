@@ -103,20 +103,22 @@ class MenuScreen extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is MenuInitial) {
-              return buildOnboarding();
+              return const BuildOnboarding();
             } else if (state is MenuLoading) {
-              return buildLoading(context);
+              return const BuildLoading();
             } else if (state is MenuHome) {
-              return buildHome(context, state.shoes);
+              return BuildHome(shoes: state.shoes);
             } else if (state is MenuSearch) {
               return const BuildSearch();
             } else if (state is MenuCart) {
-              return buildCart(
-                  context, state.user, state.shoesInCart, state.totalPrice);
+              return BuildCart(
+                shoesInCart: state.shoesInCart,
+                totalPrice: state.totalPrice,
+              );
             } else if (state is MenuSettings) {
-              return buildSettings(context, state.user);
+              return BuildSettings(user: state.user);
             } else {
-              return buildLoading(context);
+              return const BuildLoading();
             }
           },
         ),
