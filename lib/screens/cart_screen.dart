@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:horizon_comfort/screens/shoe_screen.dart';
 import 'package:horizon_comfort/utilities/constants.dart';
 import 'package:horizon_comfort/cubits/menu/menu_cubit.dart';
 import 'package:horizon_comfort/data/models/shoe_model.dart';
-import 'package:horizon_comfort/data/models/user_model.dart';
 import 'package:horizon_comfort/widgets/custom_list_tile.dart';
 
 class BuildCart extends StatelessWidget {
@@ -50,7 +50,17 @@ class BuildCart extends StatelessWidget {
                     BlocProvider.of<MenuCubit>(context)
                         .removeCartItem(shoesInCart[index].id);
                   },
-                  child: CustomListTile(shoesInCart[index]),
+                  child: InkWell(
+                    child: CustomListTile(shoesInCart[index]),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ShoeScreen(
+                                    shoe: shoesInCart[index],
+                                  )));
+                    },
+                  ),
                 );
               },
               separatorBuilder: (BuildContext context, int index) =>

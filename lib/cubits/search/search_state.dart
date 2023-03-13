@@ -19,7 +19,7 @@ class SearchError extends SearchState {
   SearchError({required this.message});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [message];
 }
 
 class SearchChanged extends SearchState {
@@ -28,5 +28,5 @@ class SearchChanged extends SearchState {
   SearchChanged({required this.shoes});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [shoes];
 }

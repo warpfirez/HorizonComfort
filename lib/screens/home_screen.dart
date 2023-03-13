@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:horizon_comfort/cubits/favorites/favourites_cubit.dart';
 import 'package:horizon_comfort/data/models/shoe_model.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:horizon_comfort/screens/shoe_screen.dart';
 import 'package:horizon_comfort/utilities/constants.dart';
 import 'package:horizon_comfort/widgets/custom_arrivals_container.dart';
 
-class BuildHome extends StatelessWidget {
+class BuildHome extends StatefulWidget {
   const BuildHome({Key? key, required this.shoes}) : super(key: key);
 
   final List<ShoeModel> shoes;
+
+  @override
+  State<BuildHome> createState() => _BuildHomeState();
+}
+
+class _BuildHomeState extends State<BuildHome> {
+  @override
+  void initState() {
+    super.initState();
+    final favouritesCubit = BlocProvider.of<FavouritesCubit>(context);
+    favouritesCubit.loadData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,25 +41,62 @@ class BuildHome extends StatelessWidget {
           Expanded(
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: shoes.length,
+                itemCount: widget.shoes.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(shoes[index].galleryUrl!['0']!),
-                        //child: Text(shoes[index].toString()),
-                      ),
+                  return Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      alignment: AlignmentDirectional.topEnd,
+                      children: [
+                        InkWell(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                                widget.shoes[index].galleryUrl!['0']!),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ShoeScreen(
+                                          shoe: widget.shoes[index],
+                                        )));
+                          },
+                        ),
+                        BlocBuilder<FavouritesCubit, FavouritesState>(
+                          builder: (context, state) {
+                            if (state is FavouritesChanged) {
+                              return InkWell(
+                                child: AnimatedSwitcher(
+                                    duration: const Duration(milliseconds: 300),
+                                    switchInCurve: Curves.easeIn,
+                                    switchOutCurve: Curves.easeOut,
+                                    child: state.user.favouritesIds
+                                            .contains(widget.shoes[index].id)
+                                        ? const Icon(
+                                            Icons.favorite_outlined,
+                                            color: kPastelRed,
+                                            size: 30,
+                                          )
+                                        : Icon(Icons.favorite_outline_outlined,
+                                            color: Colors.black87,
+                                            size: 30,
+                                            key: ValueKey(state
+                                                .user.favouritesIds.length))),
+                                onTap: () {
+                                  final favouritesCubit =
+                                      BlocProvider.of<FavouritesCubit>(context);
+                                  favouritesCubit.favouritesChanged(
+                                      widget.shoes[index].id);
+                                },
+                              );
+                            }
+                            return const SizedBox();
+                          },
+                        ),
+                      ],
                     ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ShoeScreen(
-                                    shoe: shoes[index],
-                                  )));
-                    },
                   );
                 }),
           ),
@@ -65,24 +116,65 @@ class BuildHome extends StatelessWidget {
                   const SliverSimpleGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
-              itemCount: shoes.length,
+              itemCount: widget.shoes.length,
               itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ShoeScreen(
-                                  shoe: shoes[index],
-                                )));
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(shoes[index].pictureUrlCandid!),
+                return Stack(
+                  clipBehavior: Clip.none,
+                  alignment: AlignmentDirectional.topEnd,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ShoeScreen(
+                                      shoe: widget.shoes[index],
+                                    )));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                              widget.shoes[index].pictureUrlCandid!),
+                        ),
+                      ),
                     ),
-                  ),
+                    BlocBuilder<FavouritesCubit, FavouritesState>(
+                      builder: (context, state) {
+                        if (state is FavouritesChanged) {
+                          return InkWell(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: AnimatedSwitcher(
+                                  duration: const Duration(milliseconds: 300),
+                                  switchInCurve: Curves.easeIn,
+                                  switchOutCurve: Curves.easeOut,
+                                  child: state.user.favouritesIds
+                                          .contains(widget.shoes[index].id)
+                                      ? const Icon(
+                                          Icons.favorite_outlined,
+                                          color: kPastelRed,
+                                          size: 30,
+                                        )
+                                      : Icon(Icons.favorite_outline_outlined,
+                                          color: Colors.black87,
+                                          size: 30,
+                                          key: ValueKey(state
+                                              .user.favouritesIds.length))),
+                            ),
+                            onTap: () {
+                              final favouritesCubit =
+                                  BlocProvider.of<FavouritesCubit>(context);
+                              favouritesCubit
+                                  .favouritesChanged(widget.shoes[index].id);
+                            },
+                          );
+                        }
+                        return const SizedBox();
+                      },
+                    ),
+                  ],
                 );
               },
             ),

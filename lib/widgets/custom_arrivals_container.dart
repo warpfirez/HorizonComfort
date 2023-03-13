@@ -13,7 +13,7 @@ class CustomArrivalsContainer extends StatelessWidget {
       height: 90,
       width: double.infinity,
       decoration: const BoxDecoration(
-        color: kPastelYellow,
+        color: kPastelPink,
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
         boxShadow: [
           BoxShadow(

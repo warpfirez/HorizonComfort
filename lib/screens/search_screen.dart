@@ -59,6 +59,8 @@ class _BuildSearchState extends State<BuildSearch> {
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
+                          FocusScope.of(context).unfocus();
+
                           Navigator.push(
                               context,
                               MaterialPageRoute(
