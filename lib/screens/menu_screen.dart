@@ -111,13 +111,16 @@ class MenuScreen extends StatelessWidget {
             } else if (state is MenuSearch) {
               return const BuildSearch();
             } else if (state is MenuCart) {
-              return BuildCart();
+              return const BuildCart();
             } else if (state is MenuFavourites) {
               return const BuildFavourites();
             } else if (state is MenuSettings) {
               return BuildSettings(user: state.user);
             } else if (state is MenuError) {
-              return Text(state.message);
+              return Text(
+                state.message,
+                style: kTypewriterTextStyle,
+              );
             }
             return const SizedBox();
           },
