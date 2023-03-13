@@ -66,7 +66,7 @@ class _BuildHomeState extends State<BuildHome> {
                         ),
                         BlocBuilder<FavouritesCubit, FavouritesState>(
                           builder: (context, state) {
-                            if (state is FavouritesChanged) {
+                            if (state is FavouritesLoaded) {
                               return InkWell(
                                 child: AnimatedSwitcher(
                                     duration: const Duration(milliseconds: 300),
@@ -142,7 +142,7 @@ class _BuildHomeState extends State<BuildHome> {
                     ),
                     BlocBuilder<FavouritesCubit, FavouritesState>(
                       builder: (context, state) {
-                        if (state is FavouritesChanged) {
+                        if (state is FavouritesLoaded) {
                           return InkWell(
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),

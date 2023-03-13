@@ -25,16 +25,6 @@ class MenuHome extends MenuState {
   const MenuHome(this.shoes);
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is MenuHome &&
-          runtimeType == other.runtimeType &&
-          shoes == other.shoes;
-
-  @override
-  int get hashCode => shoes.hashCode;
-
-  @override
   List<Object?> get props => [shoes];
 }
 
@@ -58,28 +48,14 @@ class MenuSettings extends MenuState {
   const MenuSettings(this.user);
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is MenuSettings &&
-          runtimeType == other.runtimeType &&
-          user == other.user;
-
-  @override
-  int get hashCode => user.hashCode;
-
-  @override
   List<Object?> get props => [user];
 }
 
 class MenuCart extends MenuState {
-  final UserModel user;
-  final List<ShoeModel> shoesInCart;
-  final int totalPrice;
-
-  const MenuCart(this.user, this.shoesInCart, this.totalPrice);
+  const MenuCart();
 
   @override
-  List<Object?> get props => [user, shoesInCart, totalPrice];
+  List<Object> get props => [];
 }
 
 class MenuError extends MenuState {

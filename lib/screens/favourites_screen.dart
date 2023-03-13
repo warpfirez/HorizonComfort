@@ -46,13 +46,13 @@ class _BuildFavouritesState extends State<BuildFavourites> {
             ),
             BlocBuilder<FavouritesCubit, FavouritesState>(
               builder: (context, state) {
-                if (state is FavouritesChanged) {
+                if (state is FavouritesLoaded) {
                   return Expanded(
                     child: ListView.separated(
                       itemCount: state.shoesFavourite.length,
                       itemBuilder: (context, index) {
                         return Dismissible(
-                          key: const Key('key'),
+                          key: UniqueKey(),
                           onDismissed: (direction) {
                             BlocProvider.of<FavouritesCubit>(context)
                                 .favouritesChanged(

@@ -25,7 +25,7 @@ class FavouritesCubit extends Cubit<FavouritesState> {
         shoesFavourite.add(await _databaseRepository.fetchShoeById(shoeId));
       }
 
-      emit(FavouritesChanged(shoesFavourite: shoesFavourite, user: user));
+      emit(FavouritesLoaded(shoesFavourite: shoesFavourite, user: user));
     } catch (e) {
       emit(FavouritesError(message: e.toString()));
     }
@@ -42,7 +42,7 @@ class FavouritesCubit extends Cubit<FavouritesState> {
         shoesFavourite.add(await _databaseRepository.fetchShoeById(shoeId));
       }
 
-      emit(FavouritesChanged(shoesFavourite: shoesFavourite, user: user));
+      emit(FavouritesLoaded(shoesFavourite: shoesFavourite, user: user));
     } catch (e) {
       emit(FavouritesError(message: e.toString()));
     }

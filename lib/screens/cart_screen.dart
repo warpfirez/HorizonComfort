@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:horizon_comfort/cubits/cart/cart_cubit.dart';
+import 'package:horizon_comfort/screens/loading_screen.dart';
 import 'package:horizon_comfort/screens/shoe_screen.dart';
 import 'package:horizon_comfort/utilities/constants.dart';
-import 'package:horizon_comfort/cubits/menu/menu_cubit.dart';
-import 'package:horizon_comfort/data/models/shoe_model.dart';
 import 'package:horizon_comfort/widgets/custom_list_tile.dart';
 
-class BuildCart extends StatelessWidget {
-  const BuildCart(
-      {required this.shoesInCart, required this.totalPrice, Key? key})
-      : super(key: key);
+class BuildCart extends StatefulWidget {
+  const BuildCart({Key? key}) : super(key: key);
 
-  final List<ShoeModel> shoesInCart;
-  final int totalPrice;
+  @override
+  State<BuildCart> createState() => _BuildCartState();
+}
+
+class _BuildCartState extends State<BuildCart> {
+  @override
+  void initState() {
+    super.initState();
+    final cartCubit = BlocProvider.of<CartCubit>(context);
+    cartCubit.loadData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,34 +47,43 @@ class BuildCart extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
-            child: ListView.separated(
-              itemCount: shoesInCart.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Dismissible(
-                  key: const Key('key'),
-                  onDismissed: (direction) {
-                    BlocProvider.of<MenuCubit>(context)
-                        .removeCartItem(shoesInCart[index].id);
-                  },
-                  child: InkWell(
-                    child: CustomListTile(shoesInCart[index]),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ShoeScreen(
-                                    shoe: shoesInCart[index],
-                                  )));
+          BlocBuilder<CartCubit, CartState>(
+            builder: (context, state) {
+              if (state is CartLoaded) {
+                return Expanded(
+                  child: ListView.separated(
+                    itemCount: state.shoesInCart.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Dismissible(
+                        key: UniqueKey(),
+                        onDismissed: (direction) {
+                          BlocProvider.of<CartCubit>(context)
+                              .removeCartItem(state.shoesInCart[index].id);
+                        },
+                        child: InkWell(
+                          child: CustomListTile(state.shoesInCart[index]),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ShoeScreen(
+                                          shoe: state.shoesInCart[index],
+                                        )));
+                          },
+                        ),
+                      );
                     },
+                    separatorBuilder: (BuildContext context, int index) =>
+                        const Divider(
+                      thickness: 2,
+                    ),
                   ),
                 );
-              },
-              separatorBuilder: (BuildContext context, int index) =>
-                  const Divider(
-                thickness: 2,
-              ),
-            ),
+              } else if (state is CartLoading) {
+                return const BuildLoading();
+              }
+              return const SizedBox();
+            },
           ),
           Container(
             height: 80,
@@ -78,11 +94,28 @@ class BuildCart extends StatelessWidget {
               children: [
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(
-                      'Total price: $totalPrice€',
-                      style:
-                          kTypewriterTitleBoldTextStyle.copyWith(fontSize: 22),
+                    BlocBuilder<CartCubit, CartState>(
+                      builder: (context, state) {
+                        if (state is CartLoaded) {
+                          return Row(
+                            children: [
+                              Text(
+                                'Total price: ',
+                                style: kTypewriterTitleBoldTextStyle.copyWith(
+                                    fontSize: 22),
+                              ),
+                              Text(
+                                '${state.totalPrice.toString()}€',
+                                style: kTypewriterTitleBoldTextStyle.copyWith(
+                                    fontSize: 22),
+                              ),
+                            ],
+                          );
+                        }
+                        return const SizedBox();
+                      },
                     ),
                     Text(
                       'Proceed to checkout',

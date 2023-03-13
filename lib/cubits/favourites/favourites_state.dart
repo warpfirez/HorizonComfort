@@ -22,11 +22,11 @@ class FavouritesError extends FavouritesState {
   List<Object> get props => [message];
 }
 
-class FavouritesChanged extends FavouritesState {
+class FavouritesLoaded extends FavouritesState {
   final UserModel user;
   final List<ShoeModel> shoesFavourite;
 
-  FavouritesChanged({required this.shoesFavourite, required this.user});
+  FavouritesLoaded({required this.shoesFavourite, required this.user});
 
   @override
   List<Object> get props => [user, shoesFavourite];
