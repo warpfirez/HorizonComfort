@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:horizon_comfort/cubits/favourites/favourites_cubit.dart';
 import 'package:horizon_comfort/cubits/menu/menu_cubit.dart';
 import 'package:horizon_comfort/screens/cart_screen.dart';
 import 'package:horizon_comfort/screens/favourites_screen.dart';
