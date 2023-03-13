@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:horizon_comfort/cubits/favorites/favourites_cubit.dart';
+import 'package:horizon_comfort/cubits/favourites/favourites_cubit.dart';
 import 'package:horizon_comfort/data/models/shoe_model.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:horizon_comfort/screens/shoe_screen.dart';

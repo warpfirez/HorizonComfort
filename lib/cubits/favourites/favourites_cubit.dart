@@ -21,7 +21,7 @@ class FavouritesCubit extends Cubit<FavouritesState> {
       UserModel user = await _databaseRepository.fetchUser();
       List<ShoeModel> shoesFavourite = [];
 
-      for (String shoeId in user.cartIds) {
+      for (String shoeId in user.favouritesIds) {
         shoesFavourite.add(await _databaseRepository.fetchShoeById(shoeId));
       }
 
@@ -38,7 +38,7 @@ class FavouritesCubit extends Cubit<FavouritesState> {
 
       List<ShoeModel> shoesFavourite = [];
 
-      for (String shoeId in user.cartIds) {
+      for (String shoeId in user.favouritesIds) {
         shoesFavourite.add(await _databaseRepository.fetchShoeById(shoeId));
       }
 

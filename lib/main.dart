@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:horizon_comfort/blocs/auth/auth_bloc.dart';
 import 'package:horizon_comfort/blocs/shoe/shoe_bloc.dart';
-import 'package:horizon_comfort/cubits/favorites/favourites_cubit.dart';
+import 'package:horizon_comfort/cubits/favourites/favourites_cubit.dart';
 import 'package:horizon_comfort/cubits/login/login_cubit.dart';
 import 'package:horizon_comfort/cubits/menu/menu_cubit.dart';
 import 'package:horizon_comfort/cubits/profile/profile_cubit.dart';
 import 'package:horizon_comfort/data/database_repository.dart';
 import 'package:horizon_comfort/utilities/constants.dart';
-import 'cubits/register/register_cubit.dart';
+import 'package:horizon_comfort/cubits/register/register_cubit.dart';
 import 'package:horizon_comfort/config/app_navigator.dart';
 import 'package:horizon_comfort/data/auth_repository.dart';
 import 'package:horizon_comfort/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'cubits/search/search_cubit.dart';
+import 'package:horizon_comfort/cubits/search/search_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
