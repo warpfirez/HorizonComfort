@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:horizon_comfort/cubits/search/search_cubit.dart';
+import 'package:horizon_comfort/screens/loading_screen.dart';
 import 'package:horizon_comfort/screens/shoe_screen.dart';
 import 'package:horizon_comfort/utilities/constants.dart';
 import 'package:horizon_comfort/widgets/custom_list_tile.dart';
@@ -74,7 +75,7 @@ class _BuildSearchState extends State<BuildSearch> {
                   ),
                 );
               } else if (state is SearchLoading) {
-                return const CircularProgressIndicator();
+                return const BuildLoading();
               } else if (state is SearchError) {
                 return Text(state.message);
               }

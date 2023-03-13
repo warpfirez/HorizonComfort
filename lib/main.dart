@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:horizon_comfort/blocs/auth/auth_bloc.dart';
 import 'package:horizon_comfort/blocs/shoe/shoe_bloc.dart';
+import 'package:horizon_comfort/cubits/cart/cart_cubit.dart';
 import 'package:horizon_comfort/cubits/favourites/favourites_cubit.dart';
 import 'package:horizon_comfort/cubits/login/login_cubit.dart';
 import 'package:horizon_comfort/cubits/menu/menu_cubit.dart';
@@ -40,6 +41,10 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => ShoeBloc()),
           BlocProvider(
               create: (context) => FavouritesCubit(
+                    databaseRepository: context.read<DatabaseRepository>(),
+                  )),
+          BlocProvider(
+              create: (context) => CartCubit(
                     databaseRepository: context.read<DatabaseRepository>(),
                   )),
           BlocProvider(

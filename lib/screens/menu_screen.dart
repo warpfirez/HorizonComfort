@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:horizon_comfort/cubits/favourites/favourites_cubit.dart';
 import 'package:horizon_comfort/cubits/menu/menu_cubit.dart';
 import 'package:horizon_comfort/screens/cart_screen.dart';
 import 'package:horizon_comfort/screens/favourites_screen.dart';
@@ -112,17 +111,15 @@ class MenuScreen extends StatelessWidget {
             } else if (state is MenuSearch) {
               return const BuildSearch();
             } else if (state is MenuCart) {
-              return BuildCart(
-                shoesInCart: state.shoesInCart,
-                totalPrice: state.totalPrice,
-              );
+              return BuildCart();
             } else if (state is MenuFavourites) {
               return const BuildFavourites();
             } else if (state is MenuSettings) {
               return BuildSettings(user: state.user);
-            } else {
-              return const BuildLoading();
+            } else if (state is MenuError) {
+              return Text(state.message);
             }
+            return const SizedBox();
           },
         ),
       )),
