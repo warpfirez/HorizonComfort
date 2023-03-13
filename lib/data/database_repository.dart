@@ -60,9 +60,10 @@ class DatabaseRepository {
         .catchError((error) => print("Failed to update user: $error"));
   }
 
-  Future<UserModel> fetchUser(String? id) async {
+  Future<UserModel> fetchUser() async {
     var collection = _firebaseFirestore.collection('users');
-    var snapshot = await collection.doc(id).get();
+    var snapshot =
+        await collection.doc(FirebaseAuth.instance.currentUser?.uid).get();
 
     return UserModel.fromDocumentSnapshot(snapshot);
   }
@@ -99,6 +100,32 @@ class DatabaseRepository {
         .catchError((error) => print("Failed adding to cart: $error"));
   }
 
+  Future<void> updateUserFavorite({required String shoeId}) async {
+    var collection = _firebaseFirestore.collection('users');
+    var snapshot =
+        await collection.doc(FirebaseAuth.instance.currentUser?.uid).get();
+    var user = UserModel.fromDocumentSnapshot(snapshot);
+
+    if (user.favouritesIds.contains(shoeId)) {
+      return users
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .update({
+            'favouritesIds': FieldValue.arrayRemove([shoeId])
+          })
+          .then((value) => print("Removed from favourites"))
+          .catchError(
+              (error) => print("Failed removing from favourites: $error"));
+    } else {
+      return users
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .update({
+            'favouritesIds': FieldValue.arrayUnion([shoeId])
+          })
+          .then((value) => print("Added to favourites"))
+          .catchError((error) => print("Failed adding to favourites: $error"));
+    }
+  }
+
   Future<void> removeCartItem(String? shoeId) async {
     return users
         .doc(FirebaseAuth.instance.currentUser?.uid)
@@ -121,8 +148,6 @@ class DatabaseRepository {
         filteredShoes.add(object);
       }
     }
-
-    print(filteredShoes);
 
     return filteredShoes;
   }

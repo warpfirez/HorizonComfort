@@ -3,6 +3,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:horizon_comfort/cubits/menu/menu_cubit.dart';
 import 'package:horizon_comfort/screens/cart_screen.dart';
+import 'package:horizon_comfort/screens/favourites_screen.dart';
 import 'package:horizon_comfort/screens/onboarding_screen.dart';
 import 'package:horizon_comfort/screens/search_screen.dart';
 import 'package:horizon_comfort/screens/settings_screen.dart';
@@ -30,11 +31,6 @@ class MenuScreen extends StatelessWidget {
     );
   }
 
-  //  BlocListener<AuthBloc, AuthState>(listener: (context, state) {
-  // if (state.status == AuthStatus.authenticated) {
-  //  const LoginScreen();
-  // }
-
   @override
   Widget build(BuildContext context) {
     GlobalKey<CurvedNavigationBarState> bottomNavigationKey = GlobalKey();
@@ -59,7 +55,6 @@ class MenuScreen extends StatelessWidget {
         onTap: (index) {
           final menuCubit = BlocProvider.of<MenuCubit>(context);
           print(index);
-
           switch (index) {
             case 0:
               {
@@ -68,12 +63,17 @@ class MenuScreen extends StatelessWidget {
               break;
             case 1:
               {
-                menuCubit.getSearchScreen('dymy');
+                menuCubit.getSearchScreen();
               }
               break;
             case 2:
               {
                 menuCubit.getCartScreen();
+              }
+              break;
+            case 3:
+              {
+                menuCubit.getFavouritesScreen();
               }
               break;
             case 4:
@@ -115,6 +115,8 @@ class MenuScreen extends StatelessWidget {
                 shoesInCart: state.shoesInCart,
                 totalPrice: state.totalPrice,
               );
+            } else if (state is MenuFavourites) {
+              return const BuildFavourites();
             } else if (state is MenuSettings) {
               return BuildSettings(user: state.user);
             } else {

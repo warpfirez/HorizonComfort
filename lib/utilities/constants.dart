@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 const kBackgroundColor = Color(0xFFF5F6EF); // 303030
+const kPastelRed = Color(0xFFFF6961);
 const kPastelGreen = Color(0xFFAAD2BD);
 const kPastelYellow = Color(0xFFFBF398);
 const kPastelPink = Color(0xFFDDDFFE);

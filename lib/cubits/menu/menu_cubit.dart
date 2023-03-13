@@ -29,11 +29,11 @@ class MenuCubit extends Cubit<MenuState> {
     }
   }
 
-  Future<void> getSearchScreen(String searchTestData) async {
+  Future<void> getSearchScreen() async {
     try {
       emit(const MenuLoading());
 
-      emit(MenuSearch());
+      emit(const MenuSearch());
     } on NetworkException {
       emit(const MenuError("Network exception Search Page"));
     }
@@ -42,8 +42,7 @@ class MenuCubit extends Cubit<MenuState> {
   Future<void> getSettingsScreen() async {
     try {
       emit(const MenuLoading());
-      final user = await _databaseRepository
-          .fetchUser(FirebaseAuth.instance.currentUser?.uid);
+      final user = await _databaseRepository.fetchUser();
       emit(MenuSettings(user));
     } on NetworkException {
       emit(const MenuError("Network exception Search Page"));
@@ -54,8 +53,7 @@ class MenuCubit extends Cubit<MenuState> {
     try {
       emit(const MenuLoading());
 
-      final user = await _databaseRepository
-          .fetchUser(FirebaseAuth.instance.currentUser?.uid);
+      final user = await _databaseRepository.fetchUser();
       List<ShoeModel> shoesInCart = [];
       int totalPrice = 0;
 
@@ -84,8 +82,7 @@ class MenuCubit extends Cubit<MenuState> {
 
       print("deleted $shoeId");
 
-      var user = await _databaseRepository
-          .fetchUser(FirebaseAuth.instance.currentUser?.uid);
+      var user = await _databaseRepository.fetchUser();
 
       for (String shoeId in user.cartIds) {
         shoesInCart.add(await _databaseRepository.fetchShoeById(shoeId));
@@ -96,6 +93,16 @@ class MenuCubit extends Cubit<MenuState> {
       }
 
       emit(MenuCart(user, shoesInCart, totalPrice));
+    } on NetworkException {
+      emit(const MenuError("Network exception Search Page"));
+    }
+  }
+
+  Future<void> getFavouritesScreen() async {
+    try {
+      emit(const MenuLoading());
+
+      emit(const MenuFavourites());
     } on NetworkException {
       emit(const MenuError("Network exception Search Page"));
     }
