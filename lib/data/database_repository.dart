@@ -90,7 +90,7 @@ class DatabaseRepository {
     List<ShoeModel> shoesPopular = [];
     for (var document in snapshot.docs) {
       ShoeModel object = ShoeModel.fromDocumentSnapshot(document);
-      shoesPopular.add(object);
+      shoesPopular.insert(0, object);
     }
 
     return shoesPopular;
@@ -120,6 +120,7 @@ class DatabaseRepository {
     var user = UserModel.fromDocumentSnapshot(snapshot);
 
     if (user.favouritesIds.contains(shoeId)) {
+      await decreaseShoePopularity(shoeId: shoeId);
       return users
           .doc(FirebaseAuth.instance.currentUser?.uid)
           .update({
@@ -129,6 +130,7 @@ class DatabaseRepository {
           .catchError(
               (error) => print("Failed removing from favourites: $error"));
     } else {
+      increaseShoePopularity(shoeId: shoeId);
       return users
           .doc(FirebaseAuth.instance.currentUser?.uid)
           .update({
@@ -137,6 +139,22 @@ class DatabaseRepository {
           .then((value) => print("Added to favourites"))
           .catchError((error) => print("Failed adding to favourites: $error"));
     }
+  }
+
+  Future<void> increaseShoePopularity({required String shoeId}) async {
+    await shoes
+        .doc(shoeId)
+        .update({"popularity": FieldValue.increment(1)})
+        .then((value) => print("Incremented shoe popularity"))
+        .catchError((error) => print("Failed incrementing shoe popularity"));
+  }
+
+  Future<void> decreaseShoePopularity({required String shoeId}) async {
+    await shoes
+        .doc(shoeId)
+        .update({"popularity": FieldValue.increment(-1)})
+        .then((value) => print("Decrementing shoe popularity"))
+        .catchError((error) => print("Failed decrementing shoe popularity"));
   }
 
   Future<void> removeCartItem(String? shoeId) async {
