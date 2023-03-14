@@ -20,8 +20,10 @@ class HomeCubit extends Cubit<HomeState> {
       final shoesArrivals = await _databaseRepository.fetchShoes();
       final shoesPopular = await _databaseRepository.fetchShoesByPopularity();
 
-      emit(
-          HomeLoaded(shoesArrivals: shoesArrivals, shoesPopular: shoesPopular));
+      Future.delayed(const Duration(milliseconds: 500), () {
+        emit(HomeLoaded(
+            shoesArrivals: shoesArrivals, shoesPopular: shoesPopular));
+      });
     } catch (e) {
       emit(HomeError(message: e.toString()));
     }

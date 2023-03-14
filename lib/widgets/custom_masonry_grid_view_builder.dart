@@ -67,11 +67,11 @@ class CustomMasonryGridViewBuilder extends StatelessWidget {
                                   color: kPastelRed,
                                   size: 30,
                                 )
-                              : const Icon(
-                                  Icons.favorite_outline_outlined,
+                              : Icon(Icons.favorite_outline_outlined,
                                   color: Colors.black87,
                                   size: 30,
-                                )),
+                                  key: ValueKey(
+                                      state.user.favouritesIds.length))),
                     ),
                     onTap: () {
                       final favouritesCubit =
