@@ -107,7 +107,7 @@ class MenuScreen extends StatelessWidget {
             } else if (state is MenuLoading) {
               return const BuildLoading();
             } else if (state is MenuHome) {
-              return BuildHome(shoes: state.shoes);
+              return const BuildHome();
             } else if (state is MenuSearch) {
               return const BuildSearch();
             } else if (state is MenuCart) {
