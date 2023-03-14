@@ -9,6 +9,7 @@ class ShoeModel extends Equatable {
   final Map<String, dynamic>? galleryUrl;
   final String? condition;
   final String? brand;
+  final int? popularity;
   final int? size;
   final int? price;
 
@@ -20,6 +21,7 @@ class ShoeModel extends Equatable {
     required this.galleryUrl,
     required this.condition,
     required this.brand,
+    required this.popularity,
     required this.size,
     required this.price,
   });
@@ -33,6 +35,7 @@ class ShoeModel extends Equatable {
       'galleryUrl': galleryUrl,
       'condition': condition,
       'brand': brand,
+      'popularity': popularity,
       'size': size,
       'price': price,
     };
@@ -48,12 +51,22 @@ class ShoeModel extends Equatable {
       condition: snap.data()!["condition"] as String?,
       brand: snap.data()!["brand"] as String?,
       size: snap.data()!["size"] as int?,
+      popularity: snap.data()!["popularity"] as int?,
       price: snap.data()!["price"] as int?,
       galleryUrl: snap.data()!["galleryUrl"] as Map<String, dynamic>?,
     );
   }
 
   @override
-  List<Object?> get props =>
-      [id, name, pictureUrl, pictureUrlCandid, condition, brand, size, price];
+  List<Object?> get props => [
+        id,
+        name,
+        pictureUrl,
+        pictureUrlCandid,
+        condition,
+        brand,
+        popularity,
+        size,
+        price
+      ];
 }
