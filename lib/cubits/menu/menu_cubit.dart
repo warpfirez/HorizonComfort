@@ -3,9 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:horizon_comfort/data/models/shoe_model.dart';
 import 'package:meta/meta.dart';
 import 'package:horizon_comfort/data/models/user_model.dart';
-import 'package:horizon_comfort/utilities/network.dart';
-
-import '../../data/database_repository.dart';
+import 'package:horizon_comfort/data/database_repository.dart';
 
 part 'menu_state.dart';
 
@@ -20,11 +18,11 @@ class MenuCubit extends Cubit<MenuState> {
   Future<void> getHomeScreen() async {
     try {
       emit(const MenuLoading());
-      //TODO fetch best price/ another filter
+      //TODO convert to HomeCubit
       final shoes = await _databaseRepository.fetchShoes();
       emit(MenuHome(shoes));
-    } on NetworkException {
-      emit(const MenuError("Network exception Home Page"));
+    } catch (e) {
+      emit(MenuError(e.toString()));
     }
   }
 
@@ -33,8 +31,8 @@ class MenuCubit extends Cubit<MenuState> {
       emit(const MenuLoading());
 
       emit(const MenuSearch());
-    } on NetworkException {
-      emit(const MenuError("Network exception Search Page"));
+    } catch (e) {
+      emit(MenuError(e.toString()));
     }
   }
 
@@ -43,8 +41,8 @@ class MenuCubit extends Cubit<MenuState> {
       emit(const MenuLoading());
       final user = await _databaseRepository.fetchUser();
       emit(MenuSettings(user));
-    } on NetworkException {
-      emit(const MenuError("Network exception Search Page"));
+    } catch (e) {
+      emit(MenuError(e.toString()));
     }
   }
 
@@ -53,8 +51,8 @@ class MenuCubit extends Cubit<MenuState> {
       emit(const MenuLoading());
 
       emit(const MenuCart());
-    } on NetworkException {
-      emit(const MenuError("Network exception Search Page"));
+    } catch (e) {
+      emit(MenuError(e.toString()));
     }
   }
 
@@ -63,8 +61,8 @@ class MenuCubit extends Cubit<MenuState> {
       emit(const MenuLoading());
 
       emit(const MenuFavourites());
-    } on NetworkException {
-      emit(const MenuError("Network exception Search Page"));
+    } catch (e) {
+      emit(MenuError(e.toString()));
     }
   }
 }
