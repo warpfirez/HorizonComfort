@@ -18,9 +18,7 @@ class MenuCubit extends Cubit<MenuState> {
   Future<void> getHomeScreen() async {
     try {
       emit(const MenuLoading());
-      //TODO convert to HomeCubit
-      final shoes = await _databaseRepository.fetchShoes();
-      emit(MenuHome(shoes));
+      emit(const MenuHome());
     } catch (e) {
       emit(MenuError(e.toString()));
     }

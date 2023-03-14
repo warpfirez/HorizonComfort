@@ -78,9 +78,22 @@ class DatabaseRepository {
       allShoes.add(object);
     }
 
-    return Future.delayed(const Duration(milliseconds: 500), () {
-      return allShoes;
-    });
+    return allShoes;
+  }
+
+  Future<List<ShoeModel>> fetchShoesByPopularity() async {
+    QuerySnapshot<Map<String, dynamic>> snapshot = await _firebaseFirestore
+        .collection("shoes")
+        .orderBy('popularity')
+        .get();
+
+    List<ShoeModel> shoesPopular = [];
+    for (var document in snapshot.docs) {
+      ShoeModel object = ShoeModel.fromDocumentSnapshot(document);
+      shoesPopular.add(object);
+    }
+
+    return shoesPopular;
   }
 
   Future<ShoeModel> fetchShoeById(String id) async {

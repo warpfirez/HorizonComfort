@@ -20,12 +20,10 @@ class MenuLoading extends MenuState {
 }
 
 class MenuHome extends MenuState {
-  final List<ShoeModel> shoes;
-
-  const MenuHome(this.shoes);
+  const MenuHome();
 
   @override
-  List<Object?> get props => [shoes];
+  List<Object?> get props => [];
 }
 
 class MenuSearch extends MenuState {
