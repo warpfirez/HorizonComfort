@@ -29,9 +29,9 @@ class ShoeModel extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'pictureUrlCandid': pictureUrlCandid,
       'name': name,
       'pictureUrl': pictureUrl,
+      'pictureUrlCandid': pictureUrlCandid,
       'galleryUrl': galleryUrl,
       'condition': condition,
       'brand': brand,
@@ -41,19 +41,18 @@ class ShoeModel extends Equatable {
     };
   }
 
-  factory ShoeModel.fromDocumentSnapshot(
-      DocumentSnapshot<Map<String, dynamic>> snap) {
+  factory ShoeModel.fromMap(Map<String, dynamic> map) {
     return ShoeModel(
-      id: snap.id,
-      name: snap.data()!["name"] as String?,
-      pictureUrl: snap.data()!["pictureUrl"] as String?,
-      pictureUrlCandid: snap.data()!["pictureUrlCandid"] as String?,
-      condition: snap.data()!["condition"] as String?,
-      brand: snap.data()!["brand"] as String?,
-      size: snap.data()!["size"] as int?,
-      popularity: snap.data()!["popularity"] as int?,
-      price: snap.data()!["price"] as int?,
-      galleryUrl: snap.data()!["galleryUrl"] as Map<String, dynamic>?,
+      id: map['id'] as String,
+      name: map['name'] as String,
+      pictureUrl: map['pictureUrl'] as String,
+      pictureUrlCandid: map['pictureUrlCandid'] as String,
+      galleryUrl: map['galleryUrl'] as Map<String, dynamic>,
+      condition: map['condition'] as String,
+      brand: map['brand'] as String,
+      popularity: map['popularity'] as int,
+      size: map['size'] as int,
+      price: map['price'] as int,
     );
   }
 
