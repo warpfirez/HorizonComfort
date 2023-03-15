@@ -4,6 +4,7 @@ import 'package:horizon_comfort/screens/menu_screen.dart';
 import 'package:horizon_comfort/cubits/profile/profile_cubit.dart';
 import 'package:horizon_comfort/utilities/constants.dart';
 import 'package:horizon_comfort/widgets/custom_elevated_button.dart';
+import 'package:horizon_comfort/widgets/custom_previous_page_button.dart';
 
 class EditProfileDetailsScreen extends StatelessWidget {
   EditProfileDetailsScreen({Key? key}) : super(key: key);
@@ -34,22 +35,13 @@ class EditProfileDetailsScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      InkWell(
+                      CustomPreviousPageButton(
                         onTap: () {
                           Navigator.of(context).pushNamedAndRemoveUntil(
-                            MenuScreen.routeName,
-                            ModalRoute.withName(
-                                EditProfileDetailsScreen.routeName),
-                          );
+                              MenuScreen.routeName,
+                              ModalRoute.withName(
+                                  EditProfileDetailsScreen.routeName));
                         },
-                        child: Container(
-                          margin: const EdgeInsets.all(16),
-                          child: Text(
-                            "<",
-                            style: kTypewriterTitleBoldTextStyle.copyWith(
-                                fontSize: 36),
-                          ),
-                        ),
                       )
                     ],
                   ),

@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:horizon_comfort/utilities/snackbar.dart';
 
 class AuthRepository {
   final auth.FirebaseAuth _firebaseAuth;
@@ -48,6 +50,10 @@ class AuthRepository {
   Future<void> signOut() async {
     try {
       await auth.FirebaseAuth.instance.signOut();
+      showSB(
+          title: 'Success!',
+          message: 'You have been signed out',
+          titleColor: Colors.green);
     } catch (e) {
       print(e);
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:horizon_comfort/blocs/auth/auth_bloc.dart';
 import 'package:horizon_comfort/blocs/shoe/shoe_bloc.dart';
 import 'package:horizon_comfort/cubits/cart/cart_cubit.dart';
@@ -75,7 +76,7 @@ class MyApp extends StatelessWidget {
                     databaseRepository: context.read<DatabaseRepository>(),
                   )),
         ],
-        child: MaterialApp(
+        child: GetMaterialApp(
           theme: ThemeData(
             canvasColor: kBackgroundColor,
             brightness: Brightness.light,
