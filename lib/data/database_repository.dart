@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:horizon_comfort/data/models/shoe_model.dart';
 import 'package:horizon_comfort/data/models/user_model.dart';
+import 'package:horizon_comfort/utilities/snackbar.dart';
 
 class DatabaseRepository {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
@@ -103,7 +105,20 @@ class DatabaseRepository {
     return ShoeModel.fromMap(snapshot.data()!);
   }
 
-  Future<void> addShoeToUserCart(String? shoeId) {
+  Future<void> addShoeToUserCart(String? shoeId) async {
+    UserModel user = await fetchUser();
+    if (user.cartIds.contains(shoeId)) {
+      showSB(
+          title: 'Failure!',
+          message: 'Shoe is already in cart',
+          titleColor: Colors.red);
+      return;
+    }
+
+    showSB(
+        title: 'Success!',
+        message: 'Added shoe to cart',
+        titleColor: Colors.green);
     return users
         .doc(FirebaseAuth.instance.currentUser?.uid)
         .update({

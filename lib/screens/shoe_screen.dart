@@ -103,9 +103,6 @@ class ShoeScreen extends StatelessWidget {
                 print('Adding shoe to cart: ${shoe?.id}');
                 RepositoryProvider.of<DatabaseRepository>(context)
                     .addShoeToUserCart(shoe?.id);
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text("Added to cart!"),
-                ));
               },
               text: 'Add to cart',
             ),
