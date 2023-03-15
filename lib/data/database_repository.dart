@@ -65,7 +65,7 @@ class DatabaseRepository {
     var snapshot =
         await collection.doc(FirebaseAuth.instance.currentUser?.uid).get();
 
-    return UserModel.fromDocumentSnapshot(snapshot);
+    return UserModel.fromMap(snapshot.data()!);
   }
 
   Future<List<ShoeModel>> fetchShoes() async {
@@ -74,7 +74,7 @@ class DatabaseRepository {
 
     List<ShoeModel> allShoes = [];
     for (var document in snapshot.docs) {
-      ShoeModel object = ShoeModel.fromDocumentSnapshot(document);
+      ShoeModel object = ShoeModel.fromMap(document.data());
       allShoes.add(object);
     }
 
@@ -89,7 +89,7 @@ class DatabaseRepository {
 
     List<ShoeModel> shoesPopular = [];
     for (var document in snapshot.docs) {
-      ShoeModel object = ShoeModel.fromDocumentSnapshot(document);
+      ShoeModel object = ShoeModel.fromMap(document.data());
       shoesPopular.insert(0, object);
     }
 
@@ -100,7 +100,7 @@ class DatabaseRepository {
     var collection = _firebaseFirestore.collection('shoes');
     var snapshot = await collection.doc(id).get();
 
-    return ShoeModel.fromDocumentSnapshot(snapshot);
+    return ShoeModel.fromMap(snapshot.data()!);
   }
 
   Future<void> addShoeToUserCart(String? shoeId) {
@@ -117,7 +117,7 @@ class DatabaseRepository {
     var collection = _firebaseFirestore.collection('users');
     var snapshot =
         await collection.doc(FirebaseAuth.instance.currentUser?.uid).get();
-    var user = UserModel.fromDocumentSnapshot(snapshot);
+    var user = UserModel.fromMap(snapshot.data()!);
 
     if (user.favouritesIds.contains(shoeId)) {
       await decreaseShoePopularity(shoeId: shoeId);
@@ -174,7 +174,7 @@ class DatabaseRepository {
     List<ShoeModel> filteredShoes = [];
 
     for (var document in snapshot.docs) {
-      ShoeModel object = ShoeModel.fromDocumentSnapshot(document);
+      ShoeModel object = ShoeModel.fromMap(document.data());
       if (object.name!.contains(name)) {
         filteredShoes.add(object);
       }

@@ -18,16 +18,26 @@ class UserModel extends Equatable {
     required this.cartIds,
   });
 
-  static UserModel fromDocumentSnapshot(DocumentSnapshot snap) {
-    UserModel user = UserModel(
-      id: snap.id,
-      email: snap['email'],
-      fullName: snap['fullName'],
-      phoneNumber: snap['phoneNumber'],
-      favouritesIds: snap['favouritesIds'],
-      cartIds: snap['cartIds'],
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'email': email,
+      'fullName': fullName,
+      'phoneNumber': phoneNumber,
+      'favouritesIds': favouritesIds,
+      'cartIds': cartIds,
+    };
+  }
+
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
+      id: map['id'] as String,
+      email: map['email'] as String,
+      fullName: map['fullName'] as String,
+      phoneNumber: map['phoneNumber'] as String,
+      favouritesIds: map['favouritesIds'] as List<dynamic>,
+      cartIds: map['cartIds'] as List<dynamic>,
     );
-    return user;
   }
 
   @override
